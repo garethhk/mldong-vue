@@ -10,33 +10,35 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
 
+// 进入页面前拦截
 router.beforeEach(async(to, from, next) => {
-  // start progress bar
+  // 进度条开始
   NProgress.start()
 
-  // set page title
+  // 重设页面标题
   document.title = getPageTitle(to.meta.title)
 
-  // determine whether the user has logged in
+  // 获取token，判断是否已经登录
   const hasToken = getToken()
 
   if (hasToken) {
     if (to.path === '/login') {
-      // if is logged in, redirect to the home page
+      // 如果已经登录且是登录页，则重定向到首页
       next({ path: '/' })
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
+      // 判断用户信息是否存在，如果已经存在，则可以进入页面
       if (hasGetUserInfo) {
         next()
       } else {
         try {
-          // get user info
+          // 用户信息不存在，需要去获取
           await store.dispatch('user/getInfo')
-
+          // 获取成功，则进入页面
           next()
         } catch (error) {
-          // remove token and go to login page to re-login
+          // 获取用户信息失败，则删除会话信息并跳转到登录页
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
@@ -45,20 +47,20 @@ router.beforeEach(async(to, from, next) => {
       }
     }
   } else {
-    /* has no token*/
-
+    /* 没有token*/
     if (whiteList.indexOf(to.path) !== -1) {
-      // in the free login whitelist, go directly
+      // 是白名单的页面，则可以进入页面
       next()
     } else {
-      // other pages that do not have permission to access are redirected to the login page.
+      // 非白名单，则跳转到登录页
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }
   }
 })
 
+// 进入页面后
 router.afterEach(() => {
-  // finish progress bar
+  // 进度条完成
   NProgress.done()
 })

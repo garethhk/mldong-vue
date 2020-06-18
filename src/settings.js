@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'mldong-vue',
+  title: 'mldong快速开发平台',
 
   /**
    * @type {boolean} true | false

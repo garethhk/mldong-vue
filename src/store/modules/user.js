@@ -53,10 +53,10 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { userName, avatar } = data
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_NAME', userName)
+        commit('SET_AVATAR', avatar ? avatar + '' : 'http://demo.mldong.com/img/logo-min.a1ced49f.jpg')
         resolve(data)
       }).catch(error => {
         reject(error)
