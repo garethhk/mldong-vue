@@ -4,10 +4,14 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
+import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
+import Pagination from '@/components/Pagination'
+Vue.component('Pagination', Pagination)
 import '@/styles/index.scss' // global css
-
+import * as util from '@/utils/util'
+Vue.prototype.$util = util
+import mixins from '@/mixins'
+Vue.mixin(mixins)
 import App from './App'
 import store from './store'
 import router from './router'
@@ -34,7 +38,6 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
 new Vue({
   el: '#app',
   router,
