@@ -1,13 +1,13 @@
 # mldong-vue
 
 > 这是一个极简的 vue admin 管理后台。
-[线上地址](https://gitee.com/mldong/mldong-vue/)
+[线上地址](http://vueadmin.mldong.com))
 
-[国内访问](https://gitee.com/mldong/mldong-vue/)
+[国内访问](http://vueadmin.mldong.com)
 
+[接口文档](http://api.mldong.com/doc.html)
 
 ## Extra
-
 
 ## 相关项目
 
