@@ -70,9 +70,9 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click="handleOpenDetailsDialog(scope.row)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click="handleOpenEditDialog(scope.row)">修改</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click="handleRemove(scope.row)">删除</el-button>
+          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="handleOpenDetailsDialog(scope.row)">查看</el-button>
+          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="handleOpenEditDialog(scope.row)">修改</el-button>
+          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
