@@ -76,7 +76,6 @@ export default {
   },
   watch: {
     id(n, o) {
-      console.log(n)
       this.getDetails()
     }
   },
@@ -84,17 +83,19 @@ export default {
     this.getDetails()
   },
   methods: {
-    submit() {
+    submit(isShowMessage = 1) {
       return new Promise((resolve, reject) => {
         this.$refs['form'].validate((valid) => {
           if (valid) {
             if (this.isEdit) {
               updateUser(this.form).then(res => {
-                if (res.code === 0) {
-                  this.$message({
-                    message: res.msg || '操作成功',
-                    type: 'success'
-                  })
+                if (isShowMessage) {
+                  if (res.code === 0) {
+                    this.$message({
+                      message: res.msg || '操作成功',
+                      type: 'success'
+                    })
+                  }
                 }
                 resolve(res)
               }).catch(e => {
@@ -103,11 +104,13 @@ export default {
             } else {
               delete this.form.id
               saveUser(this.form).then(res => {
-                if (res.code === 0) {
-                  this.$message({
-                    message: res.msg || '操作成功',
-                    type: 'success'
-                  })
+                if (isShowMessage) {
+                  if (res.code === 0) {
+                    this.$message({
+                      message: res.msg || '操作成功',
+                      type: 'success'
+                    })
+                  }
                 }
                 resolve(res)
               }).catch(e => {
