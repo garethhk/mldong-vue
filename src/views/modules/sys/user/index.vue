@@ -50,15 +50,12 @@
       </el-table-column>
       <el-table-column prop="sex" label="性别">
         <template slot-scope="scope">
-          <span v-if="scope.row.sex === 1">男</span>
-          <span v-else-if="scope.row.sex === 2">女</span>
-          <span v-else>未知</span>
+          <m-dict mode="list" v-model="scope.row.sex" dict-key="sys_user_sex"></m-dict>
         </template>
       </el-table-column>
       <el-table-column prop="isLocked" label="是否锁定">
         <template slot-scope="scope">
-          <span v-if="scope.row.isLocked === 1">是</span>
-          <span v-else-if="scope.row.isLocked === 2">否</span>
+          <m-dict mode="list" v-model="scope.row.isLocked" dict-key="yes_no"></m-dict>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间">
@@ -87,7 +84,7 @@
     />
     <!--end========分页===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="500px" append-to-body @close="handleCancle">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="600px" append-to-body @close="handleCancle">
       <component :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>

@@ -1,28 +1,22 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-    <el-form-item label="用户名" prop="userName">
+  <el-form :inline="true" class="m-form" ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-form-item class="m-form-item" label="用户名" prop="userName">
       <el-input v-model="form.userName" placeholder="请输入用户名"></el-input>
     </el-form-item>
-    <el-form-item label="姓名" prop="realName">
+    <el-form-item class="m-form-item" label="姓名" prop="realName">
       <el-input v-model="form.realName" placeholder="请输入姓名"></el-input>
     </el-form-item>
-    <el-form-item label="邮箱" prop="email">
+    <el-form-item class="m-form-item" label="邮箱" prop="email">
       <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
     </el-form-item>
-    <el-form-item label="手机号" prop="mobilePhone">
+    <el-form-item class="m-form-item" label="手机号" prop="mobilePhone">
       <el-input v-model="form.mobilePhone" placeholder="请输入手机号"></el-input>
     </el-form-item>
-    <el-form-item label="性别" prop="sex">
-      <el-select v-model="form.sex">
-        <el-option label="男" :value="1"></el-option>
-        <el-option label="女" :value="2"></el-option>
-      </el-select>
+    <el-form-item class="m-form-item" label="性别" prop="sex">
+      <m-dict mode="form" v-model="form.sex" dict-key="sys_user_sex"></m-dict>
     </el-form-item>
-    <el-form-item label="是否锁定" prop="isLocked">
-      <el-select v-model="form.isLocked">
-        <el-option label="是" :value="2"></el-option>
-        <el-option label="否" :value="1"></el-option>
-      </el-select>
+    <el-form-item class="m-form-item" label="是否锁定" prop="isLocked">
+      <m-dict mode="form" v-model="form.isLocked" dict-key="yes_no"></m-dict>
     </el-form-item>
   </el-form>
 </template>
@@ -139,3 +133,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.m-form {
+  font-size:0;// 解决空白折叠问题
+  .m-form-item {
+    width: 50%;
+    margin-right:0px; // 重写默认margin-right:10px;
+  }
+}
+</style>

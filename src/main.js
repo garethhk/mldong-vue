@@ -7,6 +7,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 import Pagination from '@/components/Pagination'
 Vue.component('Pagination', Pagination)
+// 处理自定义组件全局注册
+const files = require.context('./components/m', true, /\.vue$/)
+files.keys().forEach((routerPath) => {
+  const componentName = routerPath.replace(/^\.\/(.*)\/index\.\w+$/, '$1')
+  const value = files(routerPath)
+  Vue.component('m-' + componentName.toLowerCase(), value.default)
+}, {})
 import '@/styles/index.scss' // global css
 import * as util from '@/utils/util'
 Vue.prototype.$util = util

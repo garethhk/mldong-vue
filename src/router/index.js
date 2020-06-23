@@ -61,7 +61,7 @@ export const constantRoutes = [
  */
 const routersFiles = require.context('./', true, /\.js$/)
 const routerList = []
-const routers = routersFiles.keys().reduce((modules, routerPath) => {
+const routers = routersFiles.keys().forEach((routerPath) => {
   // set './app.js' => 'app'
   const routerName = routerPath.replace(/^\.\/(.*)\.\w+$/, '$1')
   const value = routersFiles(routerPath)

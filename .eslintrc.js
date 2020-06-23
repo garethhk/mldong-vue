@@ -28,6 +28,7 @@ module.exports = {
     "vue/attributes-order": "off",
     "vue/name-property-casing": ["error", "PascalCase"],
     "vue/no-v-html": "off",
+    "vue/v-bind-style": "off",
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
