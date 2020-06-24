@@ -28,6 +28,20 @@ const mixins = {
     // 元素不在数组里
     notInArray(v, arr) {
       return !this.inArray(v, arr)
+    },
+    /**
+     * 打开弹窗
+     * @param {} id  当前行id
+     * @param {*} title 弹窗标题
+     * @param {*} currentView 当前view-组件
+     * @param {*} showOk 是否显示ok
+     */
+    openDialog(id, title, currentView, showOk = true) {
+      this.id = id
+      this.title = title || ''
+      this.isOpenDialog = true
+      this.currentView = 'Edit'
+      this.showOk = showOk
     }
   }
 }

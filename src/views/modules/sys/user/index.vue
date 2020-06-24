@@ -14,12 +14,12 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10">
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="handleOpenAddDialog">
+        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
           添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="handleOpenEditDialog">
+        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
           修改
         </el-button>
       </el-col>
@@ -67,8 +67,8 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="handleOpenDetailsDialog(scope.row)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="handleOpenEditDialog(scope.row)">修改</el-button>
+          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
+          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
           <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -84,11 +84,11 @@
     />
     <!--end========分页===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="600px" append-to-body @close="handleCancle">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="600px" append-to-body @close="handleCancel">
       <component :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
-        <el-button @click="handleCancle">取 消</el-button>
+        <el-button @click="handleCancel">取 消</el-button>
       </div>
     </el-dialog>
     <!--end========弹框===========end-->
@@ -149,33 +149,6 @@ export default {
     // 查询
     handleSearch() {
       this.requestData()
-    },
-    // 打开添加弹出框
-    handleOpenAddDialog() {
-      this.title = '添加用户'
-      this.isOpenDialog = true
-      this.showOk = true
-      this.currentView = 'Add'
-    },
-    // 打开修改弹出框
-    handleOpenEditDialog(row) {
-      if (row.id) {
-        this.id = row.id
-      } else {
-        this.id = this.ids.length ? this.ids[0] : row.id
-      }
-      this.title = '修改用户'
-      this.isOpenDialog = true
-      this.showOk = true
-      this.currentView = 'Edit'
-    },
-    // 打开详情
-    handleOpenDetailsDialog(row) {
-      this.id = row.id
-      this.title = '用户详情'
-      this.isOpenDialog = true
-      this.showOk = false
-      this.currentView = 'Details'
     },
     // 删除
     handleRemove(row) {
@@ -239,14 +212,14 @@ export default {
       this.submitLoading = true
       this.$refs[this.currentView].submit().then(() => {
         this.submitLoading = false
-        this.handleCancle()
+        this.handleCancel()
         this.requestData()
       }).catch(() => {
         this.submitLoading = false
       })
     },
     // 取消提交
-    handleCancle() {
+    handleCancel() {
       this.id = undefined
       this.isOpenDialog = false
     }
