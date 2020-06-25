@@ -59,6 +59,10 @@ export default {
     mode: { // form->普通表单,list->列表页,searchForm->搜索表单
       type: String,
       default: 'form'
+    },
+    placeholder: { //  占位符
+      type: String,
+      default: '请选择'
     }
   },
   data() {

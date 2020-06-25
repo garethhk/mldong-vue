@@ -26,13 +26,31 @@ service.interceptors.request.use(
       Object.keys(config.data).forEach(item => {
         if (item.startsWith('m_')) {
           var value = config.data[item]
-          if (value) {
+          if (value !== undefined) {
             var arr = item.split('_')
             if (arr.length === 3) {
               whereParams.push({
                 operateType: arr[1],
                 propertyName: arr[2],
                 propertyValue: value
+              })
+            }
+          }
+          delete config.data[item]
+        } else if (item.startsWith('mor_')) {
+          // 处理简单的or语句
+          value = config.data[item]
+          arr = item.split('_')
+          if (value !== undefined) {
+            if (arr.length === 3) {
+              whereParams.push({
+                operateType: 'OR',
+                propertyName: arr[2],
+                propertyValue: {
+                  operateType: arr[1],
+                  propertyName: arr[2],
+                  propertyValue: value
+                }
               })
             }
           }
