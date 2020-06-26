@@ -40,7 +40,7 @@ const mixins = {
       this.id = id
       this.title = title || ''
       this.isOpenDialog = true
-      this.currentView = 'Edit'
+      this.currentView = currentView
       this.showOk = showOk
     }
   }
