@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row type="flex">
-      <el-col :span="12">
+      <el-col :span="8">
         <h3>自定义布局</h3>
         <m-dict v-model="form.roleType" dict-key="sys_role_role_type">
           <template v-slot:default="{ dict }">
@@ -23,7 +23,7 @@
         <h3>搜索布局模式</h3>
         <m-dict mode="searchForm" v-model="form.roleType" dict-key="sys_role_role_type"></m-dict>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <h3>选择单个</h3>
         <m-select v-model="userId" url="sys/user/list" value-key="id" label-key="userName" search-key="userName"></m-select>
         <h3>选择单个-修改模式</h3>
@@ -39,6 +39,14 @@
           </template>
         </m-select>
       </el-col>
+      <el-col :span="8">
+        <h3>选择单个</h3>
+        <h5>当前值：{{ parentId }}</h5>
+        <m-select-tree dialog-title="请选择父菜单" v-model="parentId" url="sys/menu/list" value-key="id" label-key="name"></m-select-tree>
+        <h3>选择单个-修改模式</h3>
+        <h5>当前值：{{ form.parentId }}</h5>
+        <m-select-tree dialog-title="请选择父菜单" v-model="form.parentId" is-edit url="sys/menu/list" value-key="id" label-key="name"></m-select-tree>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -53,10 +61,12 @@ export default {
       form: {
         roleType: 20,
         userId: undefined,
-        userIds: []
+        userIds: [],
+        parentId: undefined
       },
       userId: undefined,
-      userIds: []
+      userIds: [],
+      parentId: undefined
     }
   },
   computed: {
@@ -69,6 +79,7 @@ export default {
     setTimeout(() => {
       this.$set(this.form, 'userId', 1)
       this.$set(this.form, 'userIds', [1, 9])
+      this.$set(this.form, 'parentId', 1)
     }, 2000)
   }
 }

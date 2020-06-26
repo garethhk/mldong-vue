@@ -14,8 +14,8 @@ export default [
     component: Layout,
     children: [
       {
-        path: '/pms/category/index',
-        name: 'pms:category:index',
+        path: '/pms/productCategory/index',
+        name: 'pms:productCategory:index',
         meta: {
           icon: '',
           title: '商品分类',

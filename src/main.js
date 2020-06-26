@@ -12,7 +12,7 @@ const files = require.context('./components/m', true, /\.vue$/)
 files.keys().forEach((routerPath) => {
   const componentName = routerPath.replace(/^\.\/(.*)\/index\.\w+$/, '$1')
   const value = files(routerPath)
-  Vue.component('m-' + componentName.toLowerCase(), value.default)
+  Vue.component('m' + componentName.replace(/([A-Z])/g, '-$1').toLowerCase(), value.default)
 }, {})
 import '@/styles/index.scss' // global css
 import * as util from '@/utils/util'

@@ -1,3 +1,8 @@
+/**
+ * 根据key复制对象
+ * @param {}} src
+ * @param {*} dest
+ */
 export const copy = function(src, dest) {
   const res = {}
   Object.keys(dest).forEach(key => {
@@ -5,32 +10,45 @@ export const copy = function(src, dest) {
   })
   return res
 }
-
-export const getTree = (node) => {
+/**
+ * 获取菜单树
+ * @param {} nodes id/parentId格式数据
+ */
+export const getTree = (nodes) => {
   var root = []
-  for (var i = 0; i < node.length; i++) {
-    if (Number(node[i]['parentId']) <= 0) {
-      root.push(node[i])
+  for (var i = 0; i < nodes.length; i++) {
+    if (Number(nodes[i]['parentId']) <= 0) {
+      root.push(nodes[i])
     }
   }
-  return buildTree(node, root)
+  return buildTree(nodes, root)
 }
-export const buildTree = (node, root) => {
+/**
+ * 构建菜单树
+ * @param {*} nodes id/parentId格式数据
+ * @param {*} root 树节点
+ */
+export const buildTree = (nodes, root) => {
   for (var i = 0; i < root.length; i++) {
     root[i].title = root[i].name
     var children = []
-    for (var k = 0; k < node.length; k++) {
-      if (node[k]['parentId'] === root[i]['id']) {
-        children.push(node[k])
+    for (var k = 0; k < nodes.length; k++) {
+      if (nodes[k]['parentId'] === root[i]['id']) {
+        children.push(nodes[k])
       }
     }
     if (children.length !== 0) {
       root[i]['children'] = children
-      buildTree(node, children)
+      buildTree(nodes, children)
     }
   }
   return root
 }
+/**
+ * 先序遍历树
+ * @param {*} tree 标准树结构
+ * @param {*} level 层级
+ */
 export const preorder = (tree, level) => {
   var array = []
   for (var i = 0; i < tree.length; i++) {
@@ -50,6 +68,10 @@ export const preorder = (tree, level) => {
   }
   return array
 }
+/**
+ * 树型结构先序遍历转列表
+ * @param {*} datas 标准树结构数据
+ */
 export const tranDataTreeToTable = (datas) => {
   return preorder(getTree(datas), 1)
 }
@@ -88,6 +110,7 @@ export const getParents = (datas, id) => {
  * 获取所有子元素
  * @param {*} datas
  * @param {*} id
+ * @param {*} containParent 是否包含父id
  */
 export const getChildren = (datas, id, containParent) => {
   const res = []

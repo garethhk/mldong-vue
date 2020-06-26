@@ -1,8 +1,5 @@
 <template>
   <div class="m-select">
-    <!--el-input readonly :size="size" :placeholder="placeholder" v-model="mValue">
-      <el-button slot="append" icon="el-icon-search"></el-button>
-    </el-input-->
     <el-select
       :size="size"
       filterable
