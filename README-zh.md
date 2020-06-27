@@ -70,11 +70,150 @@ npm run lint -- --fix
 
 ## Demo
 
+## 关于代码生成器
 
-## Browsers support
+### 运行说明
 
+#### 查看帮助
 
-## License
+``` shell
+node generate/index.js -h
+```
 
+```
+Usage: index [options]
+Options:
+  -V, --version          output the version number
+  -f, --file <type>      数据文件
+  -d, --debug <type>     开启调试模式 (default: 1)
+  -c, --config <type>    配置文件 (default: "config.json")
+  -co, --covered <type>  是否覆盖(1->覆盖,0->不覆盖) (default: 0)
+  -h, --help             display help for command
+```
 
-Copyright (c) 2020-present mldong
+#### 指定某个元数据生成代码
+
+``` shell
+node generate/index.js -f sys_role.json
+```
+
+#### 指定某个元数据生成代码－覆盖式
+
+``` shell
+node generate/index.js -f sys_role.json -co 1
+```
+
+### 模板语法
+
+#### 输出
+
+##### 标准语法
+
+```
+<{value}>
+<{data.key}>
+<{data['key']}>
+<{a ? b : c}>
+<{a || b}>
+<{a + b}>
+```
+
+##### 原始语法
+
+``` 
+<%= value %>
+<%= data.key %>
+<%= data['key'] %>
+<%= a ? b : c %>
+<%= a || b %>
+<%= a + b %>
+```
+
+#### 原文输出，不转义
+
+##### 标准语法
+
+``` 
+<{@ value }>
+```
+
+##### 原始语法
+
+``` 
+<%- value %>
+```
+
+#### 条件
+
+##### 标准语法
+
+``` 
+<{if value}> ... <{/if}>
+<{if value}> ... <{else}> ... <{/if}>
+<{if v1}> ... <{else if v2}> ... <{/if>}
+<{if v1}> ... <{else if v2}> ... <{else}> ... <{/if}>
+```
+
+##### 原始语法
+
+```
+<% if (value) { %> ... <% } %>
+<% if (value) { %> ... <% } else { %>... <% } %>
+<% if (v1) { %> ... <% } else if (v2) { %> ... <% } %>
+<% if (v1) { %> ... <% } else if (v2) { %> ... <% }  else { %>... <% } %>
+```
+
+#### 循环
+
+##### 标准语法
+
+```
+隐式定义，默认$value/$index
+<{each target}>
+    <{$index}} <{$value>}>
+<{/each}>
+显示定义
+<{each target val index}>
+    <{index}> <{val>}>
+<{/each}>
+```
+
+##### 原始语法
+
+```
+<% for(var i = 0; i < target.length; i++){ %>
+    <%= i %> <%= target[i] %>
+<% } %>
+```
+
+#### 变量
+
+##### 标准语法
+
+```
+<{set temp = data.sub.content}>
+```
+
+##### 原始语法
+
+``` 
+<% var temp = data.sub.content; %>
+```
+
+## 相关文章
+
+ [打造一款适合自己的快速开发框架-先导篇](https://juejin.im/post/5eca0304518825432978055c) 
+
+ [打造一款适合自己的快速开发框架-前端脚手架搭建](https://juejin.im/post/5eca049be51d457848684e16) 
+
+[打造一款适合自己的快速开发框架-前端篇之登录与路由模块化](https://juejin.im/post/5eeb877bf265da02be0ce628)
+
+[打造一款适合自己的快速开发框架-前端篇之框架分层及CURD样例](https://juejin.im/post/5eed4f81f265da02c94e1346) 
+
+[打造一款适合自己的快速开发框架-前端篇之字典组件设计与实现](https://juejin.im/post/5ef2233ce51d45741e436c11) 
+
+[打造一款适合自己的快速开发框架-前端篇之下拉组件设计与实现](https://juejin.im/post/5ef43301f265da22cb481369) 
+
+[打造一款适合自己的快速开发框架-前端篇之选择树组件设计与实现](https://juejin.im/post/5ef563185188252e9a1fe26a) 
+
+ [打造一款适合自己的快速开发框架-前端篇之代码生成器](https://juejin.im/post/5ef6a6b16fb9a07e693a5eae) 
