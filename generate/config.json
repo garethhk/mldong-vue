@@ -1,0 +1,53 @@
+{
+  "templates": [
+    {
+      "name": "首页模板",
+      "selected": true,
+      "templateFile": "index.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>",
+      "targetFileName": "index.vue"
+    },
+    {
+      "name": "接口模板",
+      "selected": true,
+      "templateFile": "service.art",
+      "targetPath": "src/api/<%=moduleName%>",
+      "targetFileName": "<%=moduleName%>.<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>.service.js"
+    },
+    {
+      "name": "添加模板",
+      "selected": true,
+      "templateFile": "add.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>",
+      "targetFileName": "add.vue"
+    },
+    {
+      "name": "修改模板",
+      "selected": true,
+      "templateFile": "edit.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>",
+      "targetFileName": "edit.vue"
+    },
+    {
+      "name": "详情模板",
+      "selected": true,
+      "templateFile": "details.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>",
+      "targetFileName": "details.vue"
+    },
+    {
+      "name": "表单组件",
+      "selected": true,
+      "templateFile": "form.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>/components",
+      "targetFileName": "form.vue"
+    },
+    {
+      "name": "搜索组件",
+      "selected": true,
+      "templateFile": "search.art",
+      "targetPath": "src/views/modules/<%=moduleName%>/<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>/components",
+      "targetFileName": "search.vue"
+    }
+  ]
+}

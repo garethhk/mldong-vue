@@ -1,4 +1,4 @@
-<template>
+<template><% var showColumns=table.columns.filter(item=>{ return item.show})%>
   <div class="app-container">
     <!--start========头部折叠面板===========start-->
     <el-collapse accordion value="1" style="padding:0px;">
@@ -12,64 +12,51 @@
     </el-collapse>
     <!--start========头部折叠面板===========start-->
     <!--start========顶部工具栏===========start-->
-    <el-row :gutter="10" class="mb8 mt10">
+    <el-row :gutter="10" class="mb8 mt10"><{if table.hasAdd}>
       <el-col :span="1.5">
         <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
           添加
         </el-button>
-      </el-col>
+      </el-col><{/if}><{if table.hasEdit}>
       <el-col :span="1.5">
         <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
           修改
         </el-button>
-      </el-col>
+      </el-col><{/if}><{if table.hasDelete}>
       <el-col :span="1.5">
         <el-button type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
         </el-button>
-      </el-col>
+      </el-col><{/if}>
     </el-row>
     <!--end========顶部工具栏===========end-->
     <!--start========表格列表===========start-->
     <el-table stripe :header-cell-style="{background:'#eef1f6',color:'#606266'}" v-loading="loading" :data="tableData" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column prop="name" label="角色名称">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
+      <el-table-column type="selection" width="55" align="center" /><{each showColumns}><{if $value.formtype=='radio'}>
+      <el-table-column prop="<{$value.javaProperty}>" label="<{$value.remark}>">
+        <template slot-scope="scope"><{each $value.ext.items val index}><{ if index == 0}>
+          <span v-if="scope.row.<{$value.javaProperty}>==<{@ val.value}>"><{val.label}></span><{else}>
+          <span v-else-if="scope.row.<{$value.javaProperty}>==<{@ val.value}>"><{val.label}></span><{/if}><{/each}>
+          <span v-else>未知</span>
         </template>
-      </el-table-column>
-      <el-table-column prop="roleKey" label="角色标识">
+      </el-table-column><{else if $value.formtype == 'dict'}>
+      <el-table-column prop="<{$value.javaProperty}>" label="<{$value.remark}>">
         <template slot-scope="scope">
-          {{ scope.row.roleKey }}
+          <m-dict mode="list" v-model="scope.row.<{$value.javaProperty}>" dict-key="<{$value.ext.dictKey}>"<{if $value.ext.type}> type="<{$value.ext.type}>"<{/if}>></m-dict>
         </template>
-      </el-table-column>
-      <el-table-column prop="roleType" label="角色类型">
+      </el-table-column><{else}>
+      <el-table-column prop="<{$value.javaProperty}>" label="<{$value.remark}>">
         <template slot-scope="scope">
-          <m-dict mode="list" v-model="scope.row.roleType" dict-key="sys_role_role_type"></m-dict>
+          {{ scope.row.<{$value.javaProperty}> }}
         </template>
-      </el-table-column>
-      <el-table-column prop="isEnabled" label="是否启用">
-        <template slot-scope="scope">
-          <m-dict mode="list" v-model="scope.row.isEnabled" dict-key="yes_no"></m-dict>
-        </template>
-      </el-table-column>
-      <el-table-column prop="remark" label="备注">
-        <template slot-scope="scope">
-          {{ scope.row.remark }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
-        <template slot-scope="scope">
-          {{ scope.row.createTime }}
-        </template>
-      </el-table-column>
+      </el-table-column><{/if}><{/each}>
       <el-table-column
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button><{if table.hasEdit}>
+          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button><{/if}><{if table.hasDelete}>
+          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button><{/if}>
         </template>
       </el-table-column>
     </el-table>
@@ -84,7 +71,7 @@
     />
     <!--end========分页===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="50%" append-to-body @close="handleCancel">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="<{if table.dialogWidth}><{table.dialogWidth}><{else}>600px<{/if}>" append-to-body @close="handleCancel">
       <component :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
@@ -99,7 +86,7 @@ import MSearch from './components/search'
 import Add from './add'
 import Edit from './edit'
 import Details from './details'
-import { list as listRole, remove as removeRole } from '@/api/sys/sys.role.service.js'
+import { list as list<%=table.tableCameName.replace(moduleName,'')%>, remove as remove<%=table.tableCameName.replace(moduleName,'')%> } from '@/api/<%=moduleName%>/<%=moduleName%>.<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>.service.js'
 
 export default {
   components: {
@@ -163,7 +150,7 @@ export default {
         } else {
           ids = this.ids
         }
-        removeRole({
+        remove<%=table.tableCameName.replace(moduleName,'')%>({
           ids: ids
         }).then(res => {
           if (res.code === 0) {
@@ -193,7 +180,7 @@ export default {
         }
       }
       this.loading = true
-      listRole({
+      list<%=table.tableCameName.replace(moduleName,'')%>({
         pageNum: page.page,
         pageSize: page.limit,
         ...this.$refs['searchForm'] ? this.$refs['searchForm'].getData() : {}

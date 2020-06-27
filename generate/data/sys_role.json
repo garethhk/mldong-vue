@@ -1,0 +1,101 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "角色",
+    "isTree": false,
+    "dialogWidth": "50%",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_role",
+    "className": "SysRole",
+    "tableCameName": "sysRole",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "name",
+        "formtype": "text",
+        "remark": "角色名称",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "LIKE",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "roleKey",
+        "formtype": "text",
+        "remark": "角色标识",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "roleType",
+        "formtype": "dict",
+        "remark": "角色类型",
+        "ext": {
+          "dictKey": "sys_role_role_type"
+        },
+        "defaultValue": "10",
+        "searchable": true,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isEnabled",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否启用",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "remark",
+        "formtype": "textarea",
+        "remark": "备注",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType":"BT",
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}

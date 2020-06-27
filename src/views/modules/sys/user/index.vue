@@ -222,6 +222,9 @@ export default {
     handleCancel() {
       this.id = undefined
       this.isOpenDialog = false
+      if (typeof this.$refs[this.currentView].resetFields === 'function') {
+        this.$refs[this.currentView].resetFields()
+      }
     }
   }
 }
