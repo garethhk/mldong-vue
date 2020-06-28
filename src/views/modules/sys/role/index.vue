@@ -14,12 +14,12 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10">
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
+        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加角色', 'Add', true)">
           添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
+        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改角色', 'Edit', true)">
           修改
         </el-button>
       </el-col>
@@ -67,8 +67,8 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
+          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看角色', 'Details', false)">查看</el-button>
+          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改角色', 'Edit', true)">修改</el-button>
           <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -123,7 +123,7 @@ export default {
       // 当前页
       pageNum: 1,
       // 每页大小
-      pageSize: 10,
+      pageSize: process.env.VUE_APP_PAGE_SIZE,
       // 列表数据
       tableData: [],
       // 当前勾选行id
