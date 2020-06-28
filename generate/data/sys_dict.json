@@ -1,0 +1,82 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "字典",
+    "isTree": false,
+    "dialogWidth": "500px",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_dict",
+    "className": "SysDict",
+    "tableCameName": "sysDict",
+    "btns": [
+      {
+        "access": "sys:dictItem:save",
+        "name": "字典项",
+        "dialogTitle": "字典项管理",
+        "icon": "el-icon-s-fold",
+        "componentName": "dictitem"
+      }
+    ],
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "name",
+        "formtype": "text",
+        "remark": "名称",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "LIKE",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "dictKey",
+        "formtype": "text",
+        "remark": "唯一编码",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "remark",
+        "formtype": "textarea",
+        "remark": "备注",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType":"BT",
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "菜单",
+    "isTree": true,
+    "dialogWidth": "500px",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_menu",
+    "className": "SysMenu",
+    "tableCameName": "sysMenu",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String",
+        "remark": "编号"
+      },
+      {
+        "primaryKey": true,
+        "javaProperty": "parentId",
+        "formtype": "selectTree",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "remark": "父菜单",
+        "ext": {
+          "url": "/sys/menu/list"
+        }
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "name",
+        "formtype": "text",
+        "remark": "菜单名称",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "routeName",
+        "formtype": "text",
+        "remark": "路由名称",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isShow",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否显示",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "sort",
+        "formtype": "textarea",
+        "remark": "排序",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Double"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}
