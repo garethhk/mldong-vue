@@ -2,7 +2,7 @@
   "moduleName": "sys",
   "table": {
     "fullscreen": false,
-    "remark": "角色",
+    "remark": "用户",
     "isTree": false,
     "dialogWidth": "50%",
     "labelWidth": 100,
@@ -10,35 +10,9 @@
     "hasAdd": true,
     "hasEdit": true,
     "hasExport": false,
-    "tableName": "sys_role",
-    "className": "SysRole",
-    "tableCameName": "sysRole",
-    "btns": [
-      {
-        "access": "sys:rbac:saveRoleAccess",
-        "name": "接口权限",
-        "dialogTitle": "设置接口权限",
-        "icon": "el-icon-setting",
-        "dialogType": "dialog",
-        "componentName": "authAccess"
-      },
-      {
-        "access": "sys:rbac:saveRoleMenu",
-        "name": "菜单权限",
-        "dialogTitle": "设置菜单权限",
-        "icon": "el-icon-menu",
-        "dialogType": "dialog",
-        "componentName": "authMenu"
-      },
-      {
-        "access": "sys:rbac:listUserByRoleId",
-        "name": "成员管理",
-        "dialogTitle": "成员列表，所属角色: ${scope.row.name}",
-        "icon": "el-icon-s-custom",
-        "dialogType": "drawer",
-        "componentName": "drawer"
-      }
-    ],
+    "tableName": "sys_user",
+    "className": "SysUser",
+    "tableCameName": "sysUser",
     "columns": [
       {
         "primaryKey": true,
@@ -49,36 +23,64 @@
       },
       {
         "primaryKey": false,
-        "javaProperty": "name",
+        "javaProperty": "userName",
         "formtype": "text",
-        "remark": "角色名称",
+        "remark": "用户名",
         "defaultValue": "undefined",
         "searchable": true,
-        "searchType": "LIKE",
+        "searchType": "EQ",
         "required": true,
         "show": true,
         "javaType": "String"
       },
       {
         "primaryKey": false,
-        "javaProperty": "roleKey",
+        "javaProperty": "realName",
         "formtype": "text",
-        "remark": "角色标识",
+        "remark": "姓名",
         "defaultValue": "undefined",
-        "searchable": false,
+        "searchable": true,
+        "searchType": "EQ",
         "required": true,
         "show": true,
         "javaType": "String"
       },
       {
         "primaryKey": false,
-        "javaProperty": "roleType",
+        "javaProperty": "mobilePhone",
+        "formtype": "text",
+        "remark": "手机号",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "sex",
         "formtype": "dict",
-        "remark": "角色类型",
+        "remark": "性别",
         "ext": {
-          "dictKey": "sys_role_role_type"
+          "dictKey": "sys_user_sex"
         },
-        "defaultValue": "10",
+        "defaultValue": 1,
+        "searchable": false,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isLocked",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否锁定",
+        "defaultValue": 2,
         "searchable": true,
         "searchType": "EQ",
         "required": true,
@@ -87,27 +89,13 @@
       },
       {
         "primaryKey": false,
-        "javaProperty": "isEnabled",
-        "formtype": "dict",
-        "ext": {
-          "dictKey": "yes_no"
-        },
-        "remark": "是否启用",
-        "defaultValue": 2,
-        "searchable": true,
-        "required": true,
-        "show": true,
-        "javaType": "Integer"
-      },
-      {
-        "primaryKey": false,
-        "javaProperty": "remark",
-        "formtype": "textarea",
-        "remark": "备注",
+        "javaProperty": "email",
+        "formtype": "text",
+        "remark": "邮箱",
         "defaultValue": "undefined",
         "searchable": false,
         "required": false,
-        "show": true,
+        "show": false,
         "javaType": "String"
       },
       {

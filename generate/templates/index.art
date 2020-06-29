@@ -1,4 +1,4 @@
-<template><% var showColumns=table.columns.filter(item=>{ return item.show})%>
+<template><% var showColumns=table.columns.filter(item=>{ return item.show});var simpleTableCameName=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1);%>
   <div class="app-container"><{if table.isTree!=true}>
     <!--start========头部折叠面板===========start-->
     <el-collapse accordion value="1" style="padding:0px;">
@@ -15,17 +15,17 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10"><{if table.hasAdd}>
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加<{table.remark}>', 'Add', true)">
+        <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加<{table.remark}>', 'Add', true)">
           添加
         </el-button>
       </el-col><{/if}><{if table.hasEdit}>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改<{table.remark}>', 'Edit', true)">
+        <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改<{table.remark}>', 'Edit', true)">
           修改
         </el-button>
       </el-col><{/if}><{if table.hasDelete}>
       <el-col :span="1.5">
-        <el-button type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
+        <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
         </el-button>
       </el-col><{/if}>
@@ -55,10 +55,10 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看<{table.remark}>', 'Details', false)">查看</el-button><{if table.hasEdit}>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改<{table.remark}>', 'Edit', true)">修改</el-button><{/if}><{if table.hasDelete}>
-          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button><{/if}><{if table.btns}><{each table.btns}>
-          <el-button type="text" size="small" icon="<{$value.icon}>" @click.native.stop="openDialog(scope.row.id,'<{$value.dialogTitle}>','<{$value.componentName}>',true)"><{$value.name}></el-button><{/each}><{/if}>
+          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看<{table.remark}>', 'Details', false)">查看</el-button><{if table.hasEdit}>
+          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改<{table.remark}>', 'Edit', true)">修改</el-button><{/if}><{if table.hasDelete}>
+          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button><{/if}><{if table.btns}><{each table.btns}>
+          <el-button v-hasPerm="['admin','<{$value.access}>']" type="text" size="small" icon="<{$value.icon}>" @click.native.stop="<{if $value.dialogType=='drawer'}>openDrawer<{else}>openDialog<{/if}>(scope.row.id,`<{$value.dialogTitle}>`,'<{$value.componentName}>',true)"><{$value.name}></el-button><{/each}><{/if}>
         </template>
       </el-table-column>
     </el-table>
@@ -80,20 +80,31 @@
         <el-button @click="handleCancel">取 消</el-button>
       </div>
     </el-dialog>
-    <!--end========弹框===========end-->
+    <!--end========弹框===========end--><% var hasDrawer=table.btns?table.btns.filter(item=>{return item.dialogType == 'drawer'}).length>0:false%><{if hasDrawer}>
+    <!--start========抽屉侧边栏========start-->
+    <el-drawer
+      :title="drawerTitle"
+      :visible.sync="isOpenDrawer"
+      direction="rtl"
+      size="50%">
+      <component :ref="drawerView" :is="drawerView" :id="id"></component>
+    </el-drawer>
+    <!--end========抽屉侧边栏========end--><{/if}>
   </div>
 </template>
 <script><{if table.isTree!=true}>
 import MSearch from './components/search'<{/if}>
 import Add from './add'
 import Edit from './edit'
-import Details from './details'
+import Details from './details'<{if table.btns}><{each table.btns}><{if $value.componentName}>
+import <{$value.componentName}> from './<{$value.componentName}>'<{/if}><{/each}><{/if}>
 import { list as list<%=table.tableCameName.replace(moduleName,'')%>, remove as remove<%=table.tableCameName.replace(moduleName,'')%> } from '@/api/<%=moduleName%>/<%=moduleName%>.<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>.service.js'
 
 export default {
   components: {<{if table.isTree!=true}>
     MSearch,<{/if}>
-    Add,
+    Add,<{if table.btns}><{each table.btns}><{if $value.componentName}>
+    <{$value.componentName}>,<{/if}><{/each}><{/if}>
     Edit,
     Details
   },
@@ -112,7 +123,7 @@ export default {
       // 当前页
       pageNum: 1,
       // 每页大小<{if table.isTree !=true}>
-      pageSize: process.env.VUE_APP_PAGE_SIZE,<{else}>
+      pageSize: Number(process.env.VUE_APP_PAGE_SIZE),<{else}>
       pageSize: 10000,<{/if}>
       // 列表数据
       tableData: [],
@@ -127,7 +138,10 @@ export default {
       // 是否打开弹出框
       isOpenDialog: false,
       // 是否显示弹出框确认按钮
-      showOk: true,
+      showOk: true,<{if hasDrawer}>
+      drawerTitle: '',
+      isOpenDrawer: false,
+      drawerView: 'DrawerView',<{/if}>
       // 提交加载中
       submitLoading: false
     }
