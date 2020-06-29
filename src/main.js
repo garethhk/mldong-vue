@@ -22,7 +22,11 @@ Vue.mixin(mixins)
 import App from './App'
 import store from './store'
 import router from './router'
-
+import importDirective from '@/directive'
+/**
+ * 注册指令
+ */
+importDirective(Vue)
 import '@/icons' // icon
 import '@/permission' // permission control
 

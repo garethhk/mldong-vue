@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    accessList: []
   }
 }
 
@@ -24,6 +25,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ACCESS_LIST: (state, accessList) => {
+    state.accessList = accessList
   }
 }
 
@@ -35,6 +39,7 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_ACCESS_LIST', data.accessList)
         setToken(data.token)
         resolve()
       }).catch(error => {
@@ -57,6 +62,7 @@ const actions = {
 
         commit('SET_NAME', userName)
         commit('SET_AVATAR', avatar ? avatar + '' : 'http://demo.mldong.com/img/logo-min.a1ced49f.jpg')
+        commit('SET_ACCESS_LIST', data.accessList)
         resolve(data)
       }).catch(error => {
         reject(error)

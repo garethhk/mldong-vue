@@ -14,17 +14,17 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10">
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加字典', 'Add', true)">
+        <el-button v-hasPerm="['admin','sys:dict:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加字典', 'Add', true)">
           添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改字典', 'Edit', true)">
+        <el-button v-hasPerm="['admin','sys:dict:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改字典', 'Edit', true)">
           修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
+        <el-button v-hasPerm="['admin','sys:dict:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
         </el-button>
       </el-col>
@@ -57,10 +57,10 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看字典', 'Details', false)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改字典', 'Edit', true)">修改</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
-          <el-button type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDialog(scope.row.id,'字典项管理','dictitem',true)">字典项</el-button>
+          <el-button v-hasPerm="['admin','sys:dict:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看字典', 'Details', false)">查看</el-button>
+          <el-button v-hasPerm="['admin','sys:dict:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改字典', 'Edit', true)">修改</el-button>
+          <el-button v-hasPerm="['admin','sys:dict:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+          <el-button v-hasPerm="['admin','sys:dictItem:save']" type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDialog(scope.row.id,'字典项管理','dictitem',true)">字典项</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -114,7 +114,7 @@ export default {
       // 当前页
       pageNum: 1,
       // 每页大小
-      pageSize: process.env.VUE_APP_PAGE_SIZE,
+      pageSize: Number(process.env.VUE_APP_PAGE_SIZE),
       // 列表数据
       tableData: [],
       // 当前勾选行id

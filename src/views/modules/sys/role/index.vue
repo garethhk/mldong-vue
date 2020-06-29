@@ -14,17 +14,17 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10">
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加角色', 'Add', true)">
+        <el-button v-hasPerm="['admin','sys:role:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加角色', 'Add', true)">
           添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改角色', 'Edit', true)">
+        <el-button v-hasPerm="['admin','sys:role:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改角色', 'Edit', true)">
           修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
+        <el-button v-hasPerm="['admin','sys:role:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
         </el-button>
       </el-col>
@@ -67,9 +67,12 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看角色', 'Details', false)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改角色', 'Edit', true)">修改</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+          <el-button v-hasPerm="['admin','sys:role:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看角色', 'Details', false)">查看</el-button>
+          <el-button v-hasPerm="['admin','sys:role:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改角色', 'Edit', true)">修改</el-button>
+          <el-button v-hasPerm="['admin','sys:role:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+          <el-button v-hasPerm="['admin','sys:rbac:saveRoleAccess']" type="text" size="small" icon="el-icon-setting" @click.native.stop="openDialog(scope.row.id,`设置接口权限`,'authAccess',true)">接口权限</el-button>
+          <el-button v-hasPerm="['admin','sys:rbac:saveRoleMenu']" type="text" size="small" icon="el-icon-menu" @click.native.stop="openDialog(scope.row.id,`设置菜单权限`,'authMenu',true)">菜单权限</el-button>
+          <el-button v-hasPerm="['admin','sys:rbac:listUserByRoleId']" type="text" size="small" icon="el-icon-s-custom" @click.native.stop="openDrawer(scope.row.id,`成员列表，所属角色: ${scope.row.name}`,'drawer',true)">成员管理</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,6 +95,15 @@
       </div>
     </el-dialog>
     <!--end========弹框===========end-->
+    <!--start========抽屉侧边栏========start-->
+    <el-drawer
+      :title="drawerTitle"
+      :visible.sync="isOpenDrawer"
+      direction="rtl"
+      size="50%">
+      <component :ref="drawerView" :is="drawerView" :id="id"></component>
+    </el-drawer>
+    <!--end========抽屉侧边栏========end-->
   </div>
 </template>
 <script>
@@ -99,12 +111,18 @@ import MSearch from './components/search'
 import Add from './add'
 import Edit from './edit'
 import Details from './details'
+import authAccess from './authAccess'
+import authMenu from './authMenu'
+import drawer from './drawer'
 import { list as listRole, remove as removeRole } from '@/api/sys/sys.role.service.js'
 
 export default {
   components: {
     MSearch,
     Add,
+    authAccess,
+    authMenu,
+    drawer,
     Edit,
     Details
   },
@@ -123,7 +141,7 @@ export default {
       // 当前页
       pageNum: 1,
       // 每页大小
-      pageSize: process.env.VUE_APP_PAGE_SIZE,
+      pageSize: Number(process.env.VUE_APP_PAGE_SIZE),
       // 列表数据
       tableData: [],
       // 当前勾选行id
@@ -138,6 +156,9 @@ export default {
       isOpenDialog: false,
       // 是否显示弹出框确认按钮
       showOk: true,
+      drawerTitle: '',
+      isOpenDrawer: false,
+      drawerView: 'DrawerView',
       // 提交加载中
       submitLoading: false
     }

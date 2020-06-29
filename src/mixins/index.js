@@ -42,6 +42,18 @@ const mixins = {
       this.isOpenDialog = true
       this.currentView = currentView
       this.showOk = showOk
+    },
+    /**
+     * 打开抽屉
+     * @param {} id  当前行id
+     * @param {*} title 弹窗标题
+     * @param {*} drawerView 当前view-组件
+     */
+    openDrawer(id, title, drawerView) {
+      this.id = id
+      this.drawerTitle = title || ''
+      this.isOpenDrawer = true
+      this.drawerView = drawerView
     }
   }
 }

@@ -10,7 +10,7 @@
       <el-input v-model="form.m_EQ_mobilePhone" placeholder="请输入手机号" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="是否锁定" prop="m_EQ_isLocked">
-      <m-dict size="small" mode="searchForm" v-model="form.m_EQ_isLocked" dict-key="yes_no"></m-dict>
+      <m-dict mode="searchForm" v-model="form.m_EQ_isLocked" dict-key="yes_no"></m-dict>
     </el-form-item>
     <el-form-item label="创建时间" prop="m_BT_createTime">
       <el-date-picker

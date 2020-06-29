@@ -13,6 +13,9 @@ export default {
     }
   },
   methods: {
+    resetFields() {
+      this.$refs.form.resetFields()
+    }
   }
 }
 </script>

@@ -14,17 +14,17 @@
     <!--start========顶部工具栏===========start-->
     <el-row :gutter="10" class="mb8 mt10">
       <el-col :span="1.5">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
+        <el-button v-hasPerm="['admin','sys:user:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
           添加
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
+        <el-button v-hasPerm="['admin','sys:user:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
           修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
+        <el-button v-hasPerm="['admin','sys:user:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
         </el-button>
       </el-col>
@@ -67,9 +67,9 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+          <el-button v-hasPerm="['admin','sys:user:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
+          <el-button v-hasPerm="['admin','sys:user:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
+          <el-button v-hasPerm="['admin','sys:user:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,7 +84,7 @@
     />
     <!--end========分页===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="600px" append-to-body @close="handleCancel">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="50%" append-to-body @close="handleCancel">
       <component :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
@@ -123,7 +123,7 @@ export default {
       // 当前页
       pageNum: 1,
       // 每页大小
-      pageSize: 10,
+      pageSize: Number(process.env.VUE_APP_PAGE_SIZE),
       // 列表数据
       tableData: [],
       // 当前勾选行id
@@ -131,7 +131,7 @@ export default {
       // 当前勾选行集合
       selection: [],
       // 当前弹出框页面
-      currentView: 'add',
+      currentView: 'Add',
       // 弹框标题
       title: '我是标题',
       // 是否打开弹出框
