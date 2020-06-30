@@ -60,7 +60,7 @@
           <el-button v-hasPerm="['admin','sys:dict:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看字典', 'Details', false)">查看</el-button>
           <el-button v-hasPerm="['admin','sys:dict:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改字典', 'Edit', true)">修改</el-button>
           <el-button v-hasPerm="['admin','sys:dict:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
-          <el-button v-hasPerm="['admin','sys:dictItem:save']" type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDialog(scope.row.id,'字典项管理','dictitem',true)">字典项</el-button>
+          <el-button v-hasPerm="['admin','sys:dictItem:list']" type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDrawer(scope.row.id,`字典项管理`,'drawer',true)">字典项</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,6 +83,15 @@
       </div>
     </el-dialog>
     <!--end========弹框===========end-->
+    <!--start========抽屉侧边栏========start-->
+    <el-drawer
+      :title="drawerTitle"
+      :visible.sync="isOpenDrawer"
+      direction="rtl"
+      size="50%">
+      <component :ref="drawerView" :is="drawerView" :id="id"></component>
+    </el-drawer>
+    <!--end========抽屉侧边栏========end-->
   </div>
 </template>
 <script>
@@ -90,12 +99,14 @@ import MSearch from './components/search'
 import Add from './add'
 import Edit from './edit'
 import Details from './details'
+import drawer from './drawer'
 import { list as listDict, remove as removeDict } from '@/api/sys/sys.dict.service.js'
 
 export default {
   components: {
     MSearch,
     Add,
+    drawer,
     Edit,
     Details
   },
@@ -129,6 +140,9 @@ export default {
       isOpenDialog: false,
       // 是否显示弹出框确认按钮
       showOk: true,
+      drawerTitle: '',
+      isOpenDrawer: false,
+      drawerView: 'DrawerView',
       // 提交加载中
       submitLoading: false
     }

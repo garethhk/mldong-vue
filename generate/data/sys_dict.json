@@ -15,11 +15,12 @@
     "tableCameName": "sysDict",
     "btns": [
       {
-        "access": "sys:dictItem:save",
+        "access": "sys:dictItem:list",
         "name": "字典项",
         "dialogTitle": "字典项管理",
         "icon": "el-icon-s-fold",
-        "componentName": "dictitem"
+        "dialogType": "drawer",
+        "componentName": "drawer"
       }
     ],
     "columns": [
