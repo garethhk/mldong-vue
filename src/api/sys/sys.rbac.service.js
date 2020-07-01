@@ -25,7 +25,7 @@ export function deleteRoleMenu(data) {
  * 从角色中移除用户
  * @param {*} data
  */
-export function remove(data) {
+export function deleteUserRole(data) {
   return request({
     url: '/sys/rbac/deleteUserRole',
     method: 'post',

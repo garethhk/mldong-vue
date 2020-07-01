@@ -97,9 +97,11 @@
     <!--end========弹框===========end-->
     <!--start========抽屉侧边栏========start-->
     <el-drawer
+      ref="drawer"
       :title="drawerTitle"
       :visible.sync="isOpenDrawer"
       direction="rtl"
+      @close="handleCloseDrawer"
       size="50%">
       <component :ref="drawerView" :is="drawerView" :id="id"></component>
     </el-drawer>
@@ -114,6 +116,7 @@ import Details from './details'
 import authAccess from './authAccess'
 import authMenu from './authMenu'
 import drawer from './drawer'
+import selectUser from './selectUser'
 import { list as listRole, remove as removeRole } from '@/api/sys/sys.role.service.js'
 
 export default {
@@ -124,6 +127,7 @@ export default {
     authMenu,
     drawer,
     Edit,
+    selectUser,
     Details
   },
   data() {
@@ -238,6 +242,9 @@ export default {
       }).catch(() => {
         this.submitLoading = false
       })
+    },
+    handleCloseDrawer() {
+      this.id = undefined
     },
     // 取消提交
     handleCancel() {

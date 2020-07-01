@@ -80,7 +80,7 @@
           "dictKey": "yes_no"
         },
         "remark": "是否锁定",
-        "defaultValue": 2,
+        "defaultValue": 1,
         "searchable": true,
         "searchType": "EQ",
         "required": true,

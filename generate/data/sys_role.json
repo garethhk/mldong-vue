@@ -39,6 +39,12 @@
         "componentName": "drawer"
       }
     ],
+    "otherDialog": [
+      {
+        "dialogTitle": "选择成员",
+        "componentName": "selectUser"
+      }
+    ],
     "columns": [
       {
         "primaryKey": true,

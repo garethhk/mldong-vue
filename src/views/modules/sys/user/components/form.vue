@@ -41,7 +41,7 @@ export default {
         realName: undefined,
         mobilePhone: undefined,
         sex: 1,
-        isLocked: 2,
+        isLocked: 1,
         email: undefined,
         id: undefined
       },

@@ -33,10 +33,15 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          // 用户信息不存在，需要去获取
-          await store.dispatch('user/getInfo')
-          // 获取成功，则进入页面
-          next()
+          // 拉取用户信息
+          const { menuList } = await store.dispatch('user/getInfo')
+          // 生成可访问的路由表
+          const accessRoutes = await store.dispatch('permission/generateRoutes', menuList)
+          // 动态添加可访问路由表
+          router.addRoutes(accessRoutes)
+          router.app.$nextTick(() => {
+            next({ ...to, replace: true })
+          })
         } catch (error) {
           // 获取用户信息失败，则删除会话信息并跳转到登录页
           await store.dispatch('user/resetToken')
