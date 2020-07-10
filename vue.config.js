@@ -61,7 +61,7 @@ module.exports = {
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
-
+    config.output.filename('[name].[hash].js').end() // 文件加hash
     // set svg-sprite-loader
     config.module
       .rule('svg')
