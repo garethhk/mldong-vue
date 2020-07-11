@@ -1,5 +1,5 @@
 <template>
-  <m-form ref="form" :is-edit="true" :id="id"></m-form>
+  <m-form ref="form" is-tree :is-edit="true" :id="id"></m-form>
 </template>
 <script>
 import MForm from './components/form'

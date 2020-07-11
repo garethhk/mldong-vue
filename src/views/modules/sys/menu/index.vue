@@ -13,11 +13,6 @@
           修改
         </el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button v-hasPerm="['admin','sys:menu:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
-          删除
-        </el-button>
-      </el-col>
     </el-row>
     <!--end========顶部工具栏===========end-->
     <!--start========表格列表===========start-->
@@ -53,6 +48,7 @@
         align="center">
         <template slot-scope="scope">
           <el-button v-hasPerm="['admin','sys:menu:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看菜单', 'Details', false)">查看</el-button>
+          <el-button v-hasPerm="['admin','sys:menu:save']" type="text" size="small" icon="el-icon-plus" @click.native.stop="openDialog(scope.row.id, '添加子菜单', 'Add', true)">添加子菜单</el-button>
           <el-button v-hasPerm="['admin','sys:menu:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改菜单', 'Edit', true)">修改</el-button>
           <el-button v-hasPerm="['admin','sys:menu:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
         </template>
@@ -61,7 +57,7 @@
     <!--end========表格列表===========end-->
     <!--start========弹框===========start-->
     <el-dialog :title="title" :visible.sync="isOpenDialog" width="500px" append-to-body @close="handleCancel">
-      <component :ref="currentView" :is="currentView" :id="id"></component>
+      <component is-tree :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
         <el-button @click="handleCancel">取 消</el-button>
@@ -100,6 +96,7 @@ export default {
       pageSize: 10000,
       // 列表数据
       tableData: [],
+      oldTableData: [], // 未转成树前的数据
       // 当前勾选行id
       ids: [],
       // 当前勾选行集合
@@ -137,6 +134,7 @@ export default {
         } else {
           ids = this.ids
         }
+        ids.push(...this.$util.getChildren(this.oldTableData, ids[0], false).map(item => { return item.id }))
         removeMenu({
           ids: ids
         }).then(res => {
@@ -174,6 +172,7 @@ export default {
       }).then(res => {
         this.loading = false
         if (res.code === 0) {
+          this.oldTableData = res.data.rows
           this.tableData = this.$util.getTree(res.data.rows)
           this.recordCount = res.data.recordCount
         }

@@ -1,7 +1,7 @@
 <template>
   <el-form :inline="false" class="m-form" ref="form" :model="form" :rules="rules" label-width="80px">
     <el-form-item class="m-form-item" label="父菜单" prop="parentId">
-      <m-select-tree :is-edit="isEdit" v-model="form.parentId" url="/sys/menu/list"></m-select-tree>
+      <m-select-tree :is-edit="isEdit||isTree" v-model="form.parentId" url="/sys/menu/list"></m-select-tree>
     </el-form-item>
     <el-form-item class="m-form-item" label="菜单名称" prop="name">
       <el-input type="text" v-model="form.name" placeholder="请输入菜单名称"></el-input>
@@ -23,6 +23,10 @@ import { save as saveMenu, update as updateMenu, get as getMenu } from '@/api/sy
 export default {
   props: {
     isEdit: {
+      type: Boolean,
+      default: false
+    },
+    isTree: {
       type: Boolean,
       default: false
     },
@@ -114,11 +118,11 @@ export default {
       this.$refs['form'].clearValidate()
     },
     getDetails() {
-      if (this.isEdit && this.id) {
+      if (this.id) {
         getMenu({
           id: this.id
         }).then(res => {
-          this.form = this.$util.copy(res.data, this.form)
+          this.$set(this.form, 'parentId', res.data.id)
         })
       }
     }
