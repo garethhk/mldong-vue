@@ -68,6 +68,7 @@ export default {
       mValue: '根节点', // 显示的文本值
       isOpenDialog: false, // 是否打开弹窗
       treeData: [], // 树型结构
+      tableData: [], // 原始数据
       defaultProps: { // elementui树型组件默认属性配置
         children: 'children',
         label: 'name'
@@ -104,6 +105,7 @@ export default {
             pageSize: 10000
           }
         }).then(res => {
+          this.tableData = res.data.rows
           if (res.code === 0) {
             this.treeData = [
               {
@@ -149,7 +151,7 @@ export default {
         }
       }
       if (this.isEdit) {
-        var nodes = this.treeData.filter(item => {
+        var nodes = this.tableData.filter(item => {
           return item.id === this.value
         })
         if (nodes.length) {
