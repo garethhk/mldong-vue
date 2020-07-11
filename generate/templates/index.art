@@ -23,7 +23,7 @@
         <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改<{table.remark}>', 'Edit', true)">
           修改
         </el-button>
-      </el-col><{/if}><{if table.hasDelete}>
+      </el-col><{/if}><{if table.hasDelete && table.isTree!=true}>
       <el-col :span="1.5">
         <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
           删除
@@ -55,7 +55,8 @@
         label="操作"
         align="center">
         <template slot-scope="scope">
-          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看<{table.remark}>', 'Details', false)">查看</el-button><{if table.hasEdit}>
+          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看<{table.remark}>', 'Details', false)">查看</el-button><{if table.isTree && table.hasAdd}>
+          <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:save']" type="text" size="small" icon="el-icon-plus" @click.native.stop="openDialog(scope.row.id, '添加子<{table.remark}>', 'Add', true)">添加子<{table.remark}></el-button><{/if}><{if table.hasEdit}>
           <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改<{table.remark}>', 'Edit', true)">修改</el-button><{/if}><{if table.hasDelete}>
           <el-button v-hasPerm="['admin','<{moduleName}>:<{simpleTableCameName}>:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button><{/if}><{if table.btns}><{each table.btns}>
           <el-button v-hasPerm="['admin','<{$value.access}>']" type="text" size="small" icon="<{$value.icon}>" @click.native.stop="<{if $value.dialogType=='drawer'}>openDrawer<{else}>openDialog<{/if}>(scope.row.id,`<{$value.dialogTitle}>`,'<{$value.componentName}>',true)"><{$value.name}></el-button><{/each}><{/if}>
@@ -74,7 +75,7 @@
     <!--end========分页===========end--><{/if}>
     <!--start========弹框===========start-->
     <el-dialog :title="title" :visible.sync="isOpenDialog" width="<{if table.dialogWidth}><{table.dialogWidth}><{else}>600px<{/if}>" append-to-body @close="handleCancel">
-      <component :ref="currentView" :is="currentView" :id="id"></component>
+      <component<{if table.isTree==true}> is-tree<{/if}}> :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
         <el-button @click="handleCancel">取 消</el-button>
@@ -130,7 +131,8 @@ export default {
       pageSize: Number(process.env.VUE_APP_PAGE_SIZE),<{else}>
       pageSize: 10000,<{/if}>
       // 列表数据
-      tableData: [],
+      tableData: [],<{if table.isTree}>
+      oldTableData: [], // 未转成树前的数据<{/if}>
       // 当前勾选行id
       ids: [],
       // 当前勾选行集合
@@ -170,7 +172,8 @@ export default {
           ids.push(row.id)
         } else {
           ids = this.ids
-        }
+        }<{if table.isTree}>
+        ids.push(...this.$util.getChildren(this.oldTableData, ids[0], false).map(item => { return item.id }))<{/if}>
         remove<%=table.tableCameName.replace(moduleName,'')%>({
           ids: ids
         }).then(res => {
@@ -209,6 +212,7 @@ export default {
         this.loading = false
         if (res.code === 0) {<{if table.isTree!=true}>
           this.tableData = res.data.rows<{else}>
+          this.oldTableData = res.data.rows
           this.tableData = this.$util.getTree(res.data.rows)<{/if}>
           this.recordCount = res.data.recordCount
         }

@@ -29,7 +29,7 @@
       <m-select<{if $value.ext.multiple}> multiple<{/if}> :is-edit="isEdit" v-model="form.<{$value.javaProperty}>" url="<{$value.ext.url}>"<{if $value.ext.valueKey}> value-key="$value.ext.valueKey"<{/if}><{if $value.ext.labelKey}> label-key="$value.ext.labelKey"<{/if}><{if $value.ext.searchKey}> search-key="$value.ext.searchKey"<{/if}>></m-select>
     </el-form-item><{else if $value.formtype == 'selectTree'}>
     <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
-      <m-select-tree<{if $value.ext.multiple}> multiple<{/if}><{if $value.ext.defaultExpandAll}> default-expand-all<{/if}> :is-edit="isEdit" v-model="form.<{$value.javaProperty}>" url="<{$value.ext.url}>"<{if $value.ext.placeholder}> placeholder="$value.ext.placeholder"<{/if}><{if $value.ext.dialogTitle}> dialog-title="$value.ext.dialogTitle"<{/if}><{if $value.ext.dialogWidth}> dialog-width="$value.ext.dialogWidth"<{/if}>></m-select-tree>
+      <m-select-tree<{if $value.ext.multiple}> multiple<{/if}><{if $value.ext.defaultExpandAll}> default-expand-all<{/if}> :is-edit="isEdit||isTree" v-model="form.<{$value.javaProperty}>" url="<{$value.ext.url}>"<{if $value.ext.placeholder}> placeholder="$value.ext.placeholder"<{/if}><{if $value.ext.dialogTitle}> dialog-title="$value.ext.dialogTitle"<{/if}><{if $value.ext.dialogWidth}> dialog-width="$value.ext.dialogWidth"<{/if}>></m-select-tree>
     </el-form-item><{/if}><{/each}>
   </el-form>
 </template>
@@ -39,6 +39,10 @@ import { save as save<%=table.tableCameName.replace(moduleName,'')%>, update as 
 export default {
   props: {
     isEdit: {
+      type: Boolean,
+      default: false
+    },
+    isTree: {
       type: Boolean,
       default: false
     },
@@ -116,14 +120,21 @@ export default {
       this.$refs['form'].resetFields()
       this.$refs['form'].clearValidate()
     },
-    getDetails() {
+    getDetails() {<{if table.isTree}>
+      if (this.id) {
+        get<%=table.tableCameName.replace(moduleName,'')%>({
+          id: this.id
+        }).then(res => {
+          this.$set(this.form, 'parentId', res.data.id)
+        })
+      }<{else}>
       if (this.isEdit && this.id) {
         get<%=table.tableCameName.replace(moduleName,'')%>({
           id: this.id
         }).then(res => {
           this.form = this.$util.copy(res.data, this.form)
         })
-      }
+      }<{/if}>
     }
   }
 }
