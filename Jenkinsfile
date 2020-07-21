@@ -30,7 +30,7 @@ pipeline {
         stage('打包生成静态文件') {
             agent {
                 docker {
-                    image 'node:10-alpine'
+                    image 'node:14.4-alpine'
                     args '-p 3000:3000'
                 }
             }
