@@ -37,6 +37,8 @@ pipeline {
             steps {
                 sh "node -v"
                 sh "npm -v"
+				// 设置sass下载地址
+                sh "npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/"
                 sh "npm --registry=${params.registry_url} install --unsafe-perm"
                 sh "npm run build:${params.profiles}"
                 sh "tar -zcvf dist.tar.gz dist"
