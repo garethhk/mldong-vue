@@ -1,11 +1,11 @@
 <template><% var searchColumns=table.columns.filter(item=>{ return item.searchable})%>
   <el-form ref="form" :model="form" :inline="true"><{each searchColumns}><{if $value.formtype=='radio'}>
     <el-form-item label="<{$value.remark}>" prop="m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>">
-      <el-radio v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" :label="undefined">所有</el-radio><{each $value.ext.items as val indexx }>
-      <el-radio v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" :label="<{@ val.value}>"><{val.label}></el-radio><{/each}>
+      <el-radio size="small" v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" :label="undefined">所有</el-radio><{each $value.ext.items as val indexx }>
+      <el-radio size="small" v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" :label="<{@ val.value}>"><{val.label}></el-radio><{/each}>
     </el-form-item><{else if $value.formtype == 'dict'}>
     <el-form-item label="<{$value.remark}>" prop="m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>">
-      <m-dict mode="searchForm" v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" dict-key="<{$value.ext.dictKey}>"<{if $value.ext.type}> type="<{$value.ext.type}>"<{/if}>></m-dict>
+      <m-dict size="small" mode="searchForm" v-model="form.m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>" dict-key="<{$value.ext.dictKey}>"<{if $value.ext.type}> type="<{$value.ext.type}>"<{/if}>></m-dict>
     </el-form-item><{else if $value.javaType == 'Date'}>
     <el-form-item label="创建时间" prop="m_<{if $value.searchType}><{$value.searchType}><{else}>EQ<{/if}>_<{$value.javaProperty}>">
       <el-date-picker

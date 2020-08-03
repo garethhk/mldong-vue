@@ -4,10 +4,10 @@
       <el-input v-model="form.m_LIKE_name" placeholder="请输入角色名称" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="角色类型" prop="m_EQ_roleType">
-      <m-dict mode="searchForm" v-model="form.m_EQ_roleType" dict-key="sys_role_role_type"></m-dict>
+      <m-dict size="small" mode="searchForm" v-model="form.m_EQ_roleType" dict-key="sys_role_role_type"></m-dict>
     </el-form-item>
     <el-form-item label="是否启用" prop="m_EQ_isEnabled">
-      <m-dict mode="searchForm" v-model="form.m_EQ_isEnabled" dict-key="yes_no"></m-dict>
+      <m-dict size="small" mode="searchForm" v-model="form.m_EQ_isEnabled" dict-key="yes_no"></m-dict>
     </el-form-item>
     <el-form-item label="创建时间" prop="m_BT_createTime">
       <el-date-picker

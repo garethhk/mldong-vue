@@ -17,10 +17,16 @@
       {
         "access": "sys:dictItem:list",
         "name": "字典项",
-        "dialogTitle": "字典项管理",
+        "dialogTitle": "字典项管理-${scope.row.name}",
         "icon": "el-icon-s-fold",
         "dialogType": "drawer",
         "componentName": "drawer"
+      }
+    ],
+    "otherDialog": [
+      {
+        "dialogTitle": "添加字典项",
+        "componentName": "dictitem"
       }
     ],
     "columns": [

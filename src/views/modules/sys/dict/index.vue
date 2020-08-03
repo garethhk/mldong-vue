@@ -60,7 +60,7 @@
           <el-button v-hasPerm="['admin','sys:dict:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看字典', 'Details', false)">查看</el-button>
           <el-button v-hasPerm="['admin','sys:dict:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改字典', 'Edit', true)">修改</el-button>
           <el-button v-hasPerm="['admin','sys:dict:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
-          <el-button v-hasPerm="['admin','sys:dictItem:list']" type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDrawer(scope.row.id,`字典项管理`,'drawer',true)">字典项</el-button>
+          <el-button v-hasPerm="['admin','sys:dictItem:list']" type="text" size="small" icon="el-icon-s-fold" @click.native.stop="openDrawer(scope.row.id,`字典项管理-${scope.row.name}`,'drawer',true)">字典项</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -85,9 +85,11 @@
     <!--end========弹框===========end-->
     <!--start========抽屉侧边栏========start-->
     <el-drawer
+      ref="drawer"
       :title="drawerTitle"
       :visible.sync="isOpenDrawer"
       direction="rtl"
+      @close="handleCloseDrawer"
       size="50%">
       <component :ref="drawerView" :is="drawerView" :id="id"></component>
     </el-drawer>
@@ -100,6 +102,7 @@ import Add from './add'
 import Edit from './edit'
 import Details from './details'
 import drawer from './drawer'
+import dictitem from './dictitem'
 import { list as listDict, remove as removeDict } from '@/api/sys/sys.dict.service.js'
 
 export default {
@@ -108,6 +111,7 @@ export default {
     Add,
     drawer,
     Edit,
+    dictitem,
     Details
   },
   data() {
@@ -222,6 +226,9 @@ export default {
       }).catch(() => {
         this.submitLoading = false
       })
+    },
+    handleCloseDrawer() {
+      this.id = undefined
     },
     // 取消提交
     handleCancel() {

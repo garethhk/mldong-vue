@@ -20,6 +20,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isTree: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: [String, Number],
       default: undefined
