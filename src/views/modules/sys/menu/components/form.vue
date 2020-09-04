@@ -122,7 +122,7 @@ export default {
         getMenu({
           id: this.id
         }).then(res => {
-          this.$set(this.form, 'parentId', res.data.id)
+          this.form = this.$util.copy(res.data, this.form)
         })
       }
     }

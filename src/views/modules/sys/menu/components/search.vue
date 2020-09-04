@@ -1,7 +1,7 @@
 <template>
   <el-form ref="form" :model="form" :inline="true">
     <el-form-item label="是否显示" prop="m_EQ_isShow">
-      <m-dict mode="searchForm" v-model="form.m_EQ_isShow" dict-key="yes_no"></m-dict>
+      <m-dict size="small" mode="searchForm" v-model="form.m_EQ_isShow" dict-key="yes_no"></m-dict>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" icon="el-icon-search" size="small" @click="handleSearch">查询</el-button>
