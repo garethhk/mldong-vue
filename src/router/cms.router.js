@@ -20,7 +20,8 @@ export default [
           icon: '',
           title: '栏目管理',
           access: ['admin', 'cms:category:index'],
-          notCache: true
+          notCache: true,
+          tagName: '内容-栏目管理'
         },
         component: (resolve) => {
           import('@/views/modules/cms/category/index.vue').then(m => {

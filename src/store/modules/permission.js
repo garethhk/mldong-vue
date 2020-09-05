@@ -19,6 +19,12 @@ function hasPermission(menus, route) {
       if (currMenu.sort) {
         route.sort = currMenu.sort
       }
+      if (currMenu.remark) {
+        route.meta.tagName = currMenu.remark
+      }
+      if (currMenu.tagName) {
+        route.meta.tagName = currMenu.tagName
+      }
     } else {
       route.sort = 10
     }

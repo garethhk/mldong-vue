@@ -61,7 +61,7 @@ const actions = {
         const { userName, avatar } = data
 
         commit('SET_NAME', userName)
-        commit('SET_AVATAR', avatar ? avatar + '' : 'http://demo.mldong.com/img/logo-min.a1ced49f.jpg')
+        commit('SET_AVATAR', avatar ? avatar + '' : '')
         commit('SET_ACCESS_LIST', data.accessList)
         resolve(data)
       }).catch(error => {
