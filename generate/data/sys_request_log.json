@@ -1,0 +1,162 @@
+{
+    "moduleName": "sys",
+    "table": {
+      "fullscreen": false,
+      "remark": "日志管理",
+      "isTree": false,
+      "dialogWidth": "50%",
+      "labelWidth": 100,
+      "hasDelete": true,
+      "hasAdd": false,
+      "hasEdit": false,
+      "hasExport": false,
+      "tableName": "sys_request_log",
+      "className": "SysRequestLog",
+      "tableCameName": "sysRequestLog",
+      "columns": [
+        {
+          "primaryKey": true,
+          "javaProperty": "id",
+          "formtype": "none",
+          "defaultValue": "undefined",
+          "javaType": "String"
+        },
+        {
+            "primaryKey": false,
+            "javaProperty": "description",
+            "formtype": "text",
+            "remark": "操作说明",
+            "defaultValue": "undefined",
+            "searchable": true,
+            "searchType": "LIKE",
+            "required": true,
+            "show": true,
+            "javaType": "String"
+          },
+        {
+            "primaryKey": false,
+            "javaProperty": "requestType",
+            "formtype": "dict",
+            "ext": {
+              "dictKey": "sys_request_log_request_type"
+            },
+            "remark": "请求类型",
+            "defaultValue": 1,
+            "searchable": true,
+            "searchType": "EQ",
+            "required": true,
+            "show": true,
+            "javaType": "Integer"
+        },
+        {
+          "primaryKey": false,
+          "javaProperty": "method",
+          "formtype": "text",
+          "remark": "请求方法",
+          "defaultValue": "undefined",
+          "searchable": false,
+          "searchType": "EQ",
+          "required": true,
+          "show": true,
+          "javaType": "String"
+        },
+        {
+          "primaryKey": false,
+          "javaProperty":"ip",
+          "formtype": "text",
+          "remark": "ip",
+          "defaultValue": "undefined",
+          "searchable": false,
+          "searchType": "EQ",
+          "required": true,
+          "show": true,
+          "javaType": "String"
+        },
+        {
+            "primaryKey": false,
+            "javaProperty":"userName",
+            "formtype": "text",
+            "remark": "用户名",
+            "defaultValue": "undefined",
+            "searchable": true,
+            "searchType": "EQ",
+            "required": true,
+            "show": true,
+            "javaType": "String"
+          },
+        {
+          "primaryKey": false,
+          "javaProperty": "startTime",
+          "formtype": "none",
+          "remark": "请求开始时间",
+          "defaultValue": "undefined",
+          "searchable": false,
+          "searchType":"BT",
+          "required": false,
+          "show": true,
+          "javaType": "Date"
+        },
+        {
+            "primaryKey": false,
+            "javaProperty": "endTime",
+            "formtype": "none",
+            "remark": "请求结束时间",
+            "defaultValue": "undefined",
+            "searchable": false,
+            "searchType":"BT",
+            "required": false,
+            "show": true,
+            "javaType": "Date"
+          },
+          {
+            "primaryKey": false,
+            "javaProperty": "uri",
+            "formtype": "text",
+            "remark": "请求uri",
+            "defaultValue": "undefined",
+            "searchable": false,
+            "searchType":"EQ",
+            "required": false,
+            "show": false,
+            "javaType": "String"
+          },
+          {
+            "primaryKey": false,
+            "javaProperty": "queryString",
+            "formtype": "text",
+            "remark": "url参数",
+            "defaultValue": "undefined",
+            "searchable": false,
+            "searchType":"EQ",
+            "required": false,
+            "show": false,
+            "javaType": "String"
+          },
+
+          {
+            "primaryKey": false,
+            "javaProperty": "body",
+            "formtype": "textarea",
+            "remark": "请求参数",
+            "defaultValue": "undefined",
+            "searchable": false,
+            "searchType":"EQ",
+            "required": false,
+            "show": false,
+            "javaType": "String"
+          },
+          {
+            "primaryKey": false,
+            "javaProperty": "returnData",
+            "formtype": "textarea",
+            "remark": "返回参数",
+            "defaultValue": "undefined",
+            "searchable": false,
+            "searchType":"EQ",
+            "required": false,
+            "show": false,
+            "javaType": "String"
+          }
+      ]
+    }
+  }

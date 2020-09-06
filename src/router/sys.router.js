@@ -72,6 +72,21 @@ export default [
             resolve(m)
           })
         }
+      },
+      {
+        path: '/sys/requestLog/index',
+        name: 'sys:requestLog:index',
+        meta: {
+          icon: '',
+          title: '日志管理',
+          access: ['admin', 'sys:requestLog:index'],
+          notCache: true
+        },
+        component: (resolve) => {
+          import('@/views/modules/sys/requestLog/index.vue').then(m => {
+            resolve(m)
+          })
+        }
       }
     ]
   }

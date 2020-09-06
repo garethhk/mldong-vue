@@ -122,7 +122,11 @@ export default {
         getMenu({
           id: this.id
         }).then(res => {
-          this.form = this.$util.copy(res.data, this.form)
+          if (this.isEdit) {
+            this.form = this.$util.copy(res.data, this.form)
+          } else {
+            this.$set(this.form, 'parentId', res.data.id)
+          }
         })
       }
     }
