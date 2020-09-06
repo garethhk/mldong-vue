@@ -56,12 +56,12 @@ function sortRouters(accessedRouters) {
   accessedRouters.sort(compare('sort'))
 }
 
-// 降序比较函数
+// 升序比较函数
 function compare(p) {
   return function(m, n) {
     var a = m[p]
     var b = n[p]
-    return b - a
+    return a - b
   }
 }
 /**
