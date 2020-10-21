@@ -80,6 +80,8 @@ export default {
       if (o === undefined || o === 0) {
         this.refreshView()
       }
+      this.treeData = []
+      this.requestData()
     }
   },
   created() {

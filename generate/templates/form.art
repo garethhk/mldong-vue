@@ -1,5 +1,5 @@
 <template><% var formColumns=table.columns.filter(item=>{ return item.formtype!='none'})%>
-  <el-form :inline="<{if table.formLayout == '1r2c'}>true<{else}>false<{/if}>" class="m-form" ref="form" :model="form" :rules="rules" label-width="80px"><{each formColumns}><{if $value.formtype=='text'}>
+  <el-form :inline="<{if table.formLayout == '1r2c'}>true<{else}>false<{/if}>" class="m-form" ref="form" :model="form" :rules="rules" label-width="<{if table.labelWidth }><{table.labelWidth}>px<{else}>80px<{/if}>"><{each formColumns}><{if $value.formtype=='text'}>
     <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
       <el-input type="text" v-model="form.<{$value.javaProperty}>" placeholder="请输入<{$value.remark}>"></el-input>
     </el-form-item><{else if $value.formtype == 'password'}>

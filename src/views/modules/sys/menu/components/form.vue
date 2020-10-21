@@ -13,7 +13,7 @@
       <m-dict mode="form" v-model="form.isShow" dict-key="yes_no"></m-dict>
     </el-form-item>
     <el-form-item class="m-form-item" label="排序" prop="sort">
-      <el-input type="textarea" v-model="form.sort" placeholder="请输入排序"></el-input>
+      <el-input type="text" v-model="form.sort" placeholder="请输入排序"></el-input>
     </el-form-item>
   </el-form>
 </template>

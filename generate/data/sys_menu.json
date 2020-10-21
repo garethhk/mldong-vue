@@ -72,7 +72,7 @@
       {
         "primaryKey": false,
         "javaProperty": "sort",
-        "formtype": "textarea",
+        "formtype": "text",
         "remark": "排序",
         "defaultValue": "undefined",
         "searchable": false,

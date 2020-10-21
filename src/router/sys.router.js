@@ -59,6 +59,36 @@ export default [
         }
       },
       {
+        path: '/sys/dept/index',
+        name: 'sys:dept:index',
+        meta: {
+          icon: '',
+          title: '部门管理',
+          access: ['admin', 'sys:dept:index'],
+          notCache: true
+        },
+        component: (resolve) => {
+          import('@/views/modules/sys/dept/index.vue').then(m => {
+            resolve(m)
+          })
+        }
+      },
+      {
+        path: '/sys/post/index',
+        name: 'sys:post:index',
+        meta: {
+          icon: '',
+          title: '岗位管理',
+          access: ['admin', 'sys:post:index'],
+          notCache: true
+        },
+        component: (resolve) => {
+          import('@/views/modules/sys/post/index.vue').then(m => {
+            resolve(m)
+          })
+        }
+      },
+      {
         path: '/sys/dict/index',
         name: 'sys:dict:index',
         meta: {

@@ -1,97 +1,104 @@
 <template>
   <div class="app-container">
-    <!--start========头部折叠面板===========start-->
-    <el-collapse accordion value="1" style="padding:0px;">
-      <el-collapse-item name="1">
-        <template slot="title">
-          <el-page-header title="返回" content="搜索条件" @back="goBack"></el-page-header>
-        </template>
-        <!--搜索模块-->
-        <m-search ref="searchForm" @on-search="handleSearch" />
-      </el-collapse-item>
-    </el-collapse>
-    <!--start========头部折叠面板===========start-->
-    <!--start========顶部工具栏===========start-->
-    <el-row :gutter="10" class="mb8 mt10">
-      <el-col :span="1.5">
-        <el-button v-hasPerm="['admin','sys:user:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
-          添加
-        </el-button>
+    <el-row>
+      <el-col :span="4">
+        <el-tree ref="ref" :data="deptData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick"></el-tree>
       </el-col>
-      <el-col :span="1.5">
-        <el-button v-hasPerm="['admin','sys:user:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
-          修改
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button v-hasPerm="['admin','sys:user:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
-          删除
-        </el-button>
+      <el-col :span="20">
+        <!--start========头部折叠面板===========start-->
+        <el-collapse accordion value="1" style="padding:0px;">
+          <el-collapse-item name="1">
+            <template slot="title">
+              <el-page-header title="返回" content="搜索条件" @back="goBack"></el-page-header>
+            </template>
+            <!--搜索模块-->
+            <m-search ref="searchForm" @on-search="handleSearch" />
+          </el-collapse-item>
+        </el-collapse>
+        <!--start========头部折叠面板===========start-->
+        <!--start========顶部工具栏===========start-->
+        <el-row :gutter="10" class="mb8 mt10">
+          <el-col :span="1.5">
+            <el-button v-hasPerm="['admin','sys:user:save']" type="primary" icon="el-icon-plus" size="small" @click="openDialog(undefined, '添加用户', 'Add', true)">
+              添加
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button v-hasPerm="['admin','sys:user:update']" type="success" icon="el-icon-edit" size="small" :disabled="single" @click="openDialog(ids[0], '修改用户', 'Edit', true)">
+              修改
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button v-hasPerm="['admin','sys:user:remove']" type="danger" icon="el-icon-delete" size="small" :disabled="multiple" @click="handleRemove">
+              删除
+            </el-button>
+          </el-col>
+        </el-row>
+        <!--end========顶部工具栏===========end-->
+        <!--start========表格列表===========start-->
+        <el-table stripe :header-cell-style="{background:'#eef1f6',color:'#606266'}" v-loading="loading" :data="tableData" @selection-change="handleSelectionChange">
+          <el-table-column type="selection" width="55" align="center" />
+          <el-table-column prop="userName" label="用户名">
+            <template slot-scope="scope">
+              {{ scope.row.userName }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="realName" label="姓名">
+            <template slot-scope="scope">
+              {{ scope.row.realName }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="mobilePhone" label="手机号">
+            <template slot-scope="scope">
+              {{ scope.row.mobilePhone }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="sex" label="性别">
+            <template slot-scope="scope">
+              <m-dict mode="list" v-model="scope.row.sex" dict-key="sys_user_sex"></m-dict>
+            </template>
+          </el-table-column>
+          <el-table-column prop="isLocked" label="是否锁定">
+            <template slot-scope="scope">
+              <m-dict mode="list" v-model="scope.row.isLocked" dict-key="yes_no"></m-dict>
+            </template>
+          </el-table-column>
+          <el-table-column prop="createTime" label="创建时间">
+            <template slot-scope="scope">
+              {{ scope.row.createTime }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            align="center">
+            <template slot-scope="scope">
+              <el-button v-hasPerm="['admin','sys:user:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
+              <el-button v-hasPerm="['admin','sys:user:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
+              <el-button v-hasPerm="['admin','sys:user:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--end========表格列表===========end-->
+        <!--start========分页===========start-->
+        <pagination
+          v-show="recordCount>0"
+          :total="recordCount"
+          :page.sync="pageNum"
+          :limit.sync="pageSize"
+          @pagination="requestData"
+        />
+        <!--end========分页===========end-->
+        <!--start========弹框===========start-->
+        <el-dialog :title="title" :visible.sync="isOpenDialog" width="50%" append-to-body @close="handleCancel">
+          <component :ref="currentView" :is="currentView" :id="id"></component>
+          <div slot="footer" class="dialog-footer">
+            <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
+            <el-button @click="handleCancel">取 消</el-button>
+          </div>
+        </el-dialog>
+        <!--end========弹框===========end-->
       </el-col>
     </el-row>
-    <!--end========顶部工具栏===========end-->
-    <!--start========表格列表===========start-->
-    <el-table stripe :header-cell-style="{background:'#eef1f6',color:'#606266'}" v-loading="loading" :data="tableData" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column prop="userName" label="用户名">
-        <template slot-scope="scope">
-          {{ scope.row.userName }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="realName" label="姓名">
-        <template slot-scope="scope">
-          {{ scope.row.realName }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="mobilePhone" label="手机号">
-        <template slot-scope="scope">
-          {{ scope.row.mobilePhone }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="sex" label="性别">
-        <template slot-scope="scope">
-          <m-dict mode="list" v-model="scope.row.sex" dict-key="sys_user_sex"></m-dict>
-        </template>
-      </el-table-column>
-      <el-table-column prop="isLocked" label="是否锁定">
-        <template slot-scope="scope">
-          <m-dict mode="list" v-model="scope.row.isLocked" dict-key="yes_no"></m-dict>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
-        <template slot-scope="scope">
-          {{ scope.row.createTime }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="操作"
-        align="center">
-        <template slot-scope="scope">
-          <el-button v-hasPerm="['admin','sys:user:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
-          <el-button v-hasPerm="['admin','sys:user:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
-          <el-button v-hasPerm="['admin','sys:user:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!--end========表格列表===========end-->
-    <!--start========分页===========start-->
-    <pagination
-      v-show="recordCount>0"
-      :total="recordCount"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
-      @pagination="requestData"
-    />
-    <!--end========分页===========end-->
-    <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="50%" append-to-body @close="handleCancel">
-      <component :ref="currentView" :is="currentView" :id="id"></component>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
-        <el-button @click="handleCancel">取 消</el-button>
-      </div>
-    </el-dialog>
-    <!--end========弹框===========end-->
   </div>
 </template>
 <script>
@@ -100,7 +107,7 @@ import Add from './add'
 import Edit from './edit'
 import Details from './details'
 import { list as listUser, remove as removeUser } from '@/api/sys/sys.user.service.js'
-
+import { list as listDept } from '@/api/sys/sys.dept.service.js'
 export default {
   components: {
     MSearch,
@@ -139,11 +146,28 @@ export default {
       // 是否显示弹出框确认按钮
       showOk: true,
       // 提交加载中
-      submitLoading: false
+      submitLoading: false,
+      // 树形
+      defaultProps: {
+        children: 'children',
+        label: 'name'
+      },
+      oldDeptData: [],
+      deptData: [],
+      m_IN_deptId: undefined
     }
   },
   created() {
     this.requestData()
+    listDept({
+      pageNum: 1,
+      pageSize: 10000
+    }).then(res => {
+      if (res.code === 0) {
+        this.oldDeptData = res.data.rows
+        this.deptData = this.$util.getTree(res.data.rows)
+      }
+    }).catch(() => {})
   },
   methods: {
     // 查询
@@ -196,7 +220,8 @@ export default {
       listUser({
         pageNum: page.page,
         pageSize: page.limit,
-        ...this.$refs['searchForm'] ? this.$refs['searchForm'].getData() : {}
+        ...this.$refs['searchForm'] ? this.$refs['searchForm'].getData() : {},
+        m_IN_deptId: this.m_IN_deptId
       }).then(res => {
         this.loading = false
         if (res.code === 0) {
@@ -225,6 +250,14 @@ export default {
       if (typeof this.$refs[this.currentView].resetFields === 'function') {
         this.$refs[this.currentView].resetFields()
       }
+    },
+    // 树点击事件
+    handleNodeClick(data) {
+      // m_IN_deptId
+      var ids = [data.id]
+      ids.push(...this.$util.getChildren(this.oldDeptData, ids[0], false).map(item => { return item.id }))
+      this.m_IN_deptId = ids
+      this.requestData()
     }
   }
 }

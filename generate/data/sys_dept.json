@@ -1,0 +1,141 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "部门",
+    "isTree": true,
+    "dialogWidth": "800px",
+    "labelWidth": 120,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_dept",
+    "className": "SysDept",
+    "tableCameName": "sysDept",
+    "formLayout": "1r2c",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String",
+        "remark": "编号"
+      },
+      {
+        "primaryKey": true,
+        "javaProperty": "parentId",
+        "formtype": "selectTree",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "remark": "父部门",
+        "ext": {
+          "url": "/sys/dept/list"
+        }
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "name",
+        "formtype": "text",
+        "remark": "部门名称",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "code",
+        "formtype": "text",
+        "remark": "部门编码",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "contacts",
+        "formtype": "text",
+        "remark": "联系人手机号",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "telephone",
+        "formtype": "text",
+        "remark": "电话",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "email",
+        "formtype": "text",
+        "remark": "邮箱",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "address",
+        "formtype": "text",
+        "remark": "地址",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isEnabled",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否启用",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "sort",
+        "formtype": "text",
+        "remark": "排序",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Double"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}
