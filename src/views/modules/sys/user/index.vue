@@ -48,6 +48,11 @@
               {{ scope.row.realName }}
             </template>
           </el-table-column>
+          <el-table-column prop="deptName" label="部门">
+            <template slot-scope="scope">
+              {{ scope.row.deptName }}
+            </template>
+          </el-table-column>
           <el-table-column prop="mobilePhone" label="手机号">
             <template slot-scope="scope">
               {{ scope.row.mobilePhone }}
@@ -106,7 +111,7 @@ import MSearch from './components/search'
 import Add from './add'
 import Edit from './edit'
 import Details from './details'
-import { list as listUser, remove as removeUser } from '@/api/sys/sys.user.service.js'
+import { listWithExt as listUser, remove as removeUser } from '@/api/sys/sys.user.service.js'
 import { list as listDept } from '@/api/sys/sys.dept.service.js'
 export default {
   components: {

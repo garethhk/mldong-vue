@@ -67,7 +67,12 @@ function genCode(config, data) {
           log(`目标文件－被覆盖：${targetFile}`)
           writeFile(content, targetFile)
         } else {
-          log(`目标文件－已存在：${targetFile}`)
+          if(item.covered) {
+            log(`目标文件－被覆盖：${targetFile}`)
+            writeFile(content, targetFile)
+          } else {
+            log(`目标文件－已存在：${targetFile}`)
+          }
         }
       } else {
         log(`目标文件－新生成：${targetFile}`)

@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="false" class="m-form" ref="form" :model="form" :rules="rules" label-width="80px">
+  <el-form :inline="false" class="m-form" ref="form" :model="form" :rules="rules" label-width="100px">
     <el-form-item class="m-form-item" label="父菜单" prop="parentId">
       <m-select-tree :is-edit="isEdit||isTree" v-model="form.parentId" url="/sys/menu/list"></m-select-tree>
     </el-form-item>

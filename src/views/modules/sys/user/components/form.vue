@@ -1,10 +1,16 @@
 <template>
-  <el-form :inline="false" class="m-form" ref="form" :model="form" :rules="rules" label-width="80px">
+  <el-form :inline="false" class="m-form" ref="form" :model="form" :rules="rules" label-width="100px">
     <el-form-item class="m-form-item" label="用户名" prop="userName">
       <el-input type="text" v-model="form.userName" placeholder="请输入用户名"></el-input>
     </el-form-item>
     <el-form-item class="m-form-item" label="姓名" prop="realName">
       <el-input type="text" v-model="form.realName" placeholder="请输入姓名"></el-input>
+    </el-form-item>
+    <el-form-item class="m-form-item" label="所属部门" prop="deptId">
+      <m-select-tree :show-root="false" :is-edit="isEdit||isTree" v-model="form.deptId" url="/sys/dept/list"></m-select-tree>
+    </el-form-item>
+    <el-form-item class="m-form-item" label="所属岗位" prop="postId">
+      <m-select :is-edit="isEdit" v-model="form.postId" url="/sys/post/list"></m-select>
     </el-form-item>
     <el-form-item class="m-form-item" label="手机号" prop="mobilePhone">
       <el-input type="text" v-model="form.mobilePhone" placeholder="请输入手机号"></el-input>
@@ -29,6 +35,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isTree: {
+      type: Boolean,
+      default: false
+    },
     id: {
       type: [String, Number],
       default: undefined
@@ -39,6 +49,8 @@ export default {
       form: {
         userName: undefined,
         realName: undefined,
+        deptId: undefined,
+        postId: undefined,
         mobilePhone: undefined,
         sex: 1,
         isLocked: 1,
@@ -51,6 +63,12 @@ export default {
         ],
         realName: [
           { required: true, message: '姓名不能为空', trigger: 'blur' }
+        ],
+        deptId: [
+          { required: true, message: '所属部门不能为空', trigger: 'blur' }
+        ],
+        postId: [
+          { required: true, message: '所属岗位不能为空', trigger: 'blur' }
         ],
         mobilePhone: [
           { required: true, message: '手机号不能为空', trigger: 'blur' }

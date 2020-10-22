@@ -66,7 +66,7 @@
     </el-table>
     <!--end========表格列表===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="800px" append-to-body @close="handleCancel">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="800px" append-to-body @close="handleCancel" destroy-on-close>
       <component is-tree :ref="currentView" :is="currentView" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>

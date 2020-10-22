@@ -46,6 +46,31 @@
         "javaType": "String"
       },
       {
+        "primaryKey": true,
+        "javaProperty": "deptId",
+        "formtype": "selectTree",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "required": true,
+        "remark": "所属部门",
+        "ext": {
+          "url": "/sys/dept/list",
+          "showRoot": false
+        }
+      },
+      {
+        "primaryKey": true,
+        "javaProperty": "postId",
+        "formtype": "mselect",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "required": true,
+        "remark": "所属岗位",
+        "ext": {
+          "url": "/sys/post/list"
+        }
+      },
+      {
         "primaryKey": false,
         "javaProperty": "mobilePhone",
         "formtype": "text",

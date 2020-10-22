@@ -61,11 +61,16 @@ export default {
     defaultExpandAll: { // 是否默认展开所有节点
       type: Boolean,
       default: false
+    },
+    // 是否显示根节点
+    showRoot: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      mValue: '根节点', // 显示的文本值
+      mValue: this.showRoot ? '根节点' : '', // 显示的文本值
       isOpenDialog: false, // 是否打开弹窗
       treeData: [], // 树型结构
       tableData: [], // 原始数据
@@ -80,8 +85,6 @@ export default {
       if (o === undefined || o === 0) {
         this.refreshView()
       }
-      this.treeData = []
-      this.requestData()
     }
   },
   created() {
@@ -109,15 +112,22 @@ export default {
         }).then(res => {
           this.tableData = res.data.rows
           if (res.code === 0) {
-            this.treeData = [
-              {
-                id: 0,
-                name: '根节点',
-                children: []
-              },
-              // 这里使用工具方法将id/parentId数据结构转成children结构
-              ...this.$util.getTree(res.data.rows)
-            ]
+            if (this.showRoot) {
+              this.treeData = [
+                {
+                  id: 0,
+                  name: '根节点',
+                  children: []
+                },
+                // 这里使用工具方法将id/parentId数据结构转成children结构
+                ...this.$util.getTree(res.data.rows)
+              ]
+            } else {
+              this.treeData = [
+                // 这里使用工具方法将id/parentId数据结构转成children结构
+                ...this.$util.getTree(res.data.rows)
+              ]
+            }
             this.$nextTick(() => {
               // dom更新完成再设置当前选中项
               this.refreshView()

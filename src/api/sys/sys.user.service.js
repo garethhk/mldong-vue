@@ -54,3 +54,14 @@ export function list(data) {
     data
   })
 }
+/**
+ * 自定义分页查询用户列表
+ * @param {*} data
+ */
+export function listWithExt(data) {
+  return request({
+    url: '/sys/user/listWithExt',
+    method: 'post',
+    data
+  })
+}
