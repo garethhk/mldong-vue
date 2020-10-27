@@ -1,0 +1,100 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "通知公告",
+    "isTree": false,
+    "dialogWidth": "50%",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_notice",
+    "className": "SysNotice",
+    "tableCameName": "sysNotice",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "title",
+        "formtype": "text",
+        "remark": "公告标题",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "LIKE",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "type",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "sys_notice_type"
+        },
+        "remark": "公告类型",
+        "defaultValue": 20
+        ,
+        "searchable": true,
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "content",
+        "formtype": "tinymce",
+        "remark": "内容",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "img",
+        "formtype": "singleUpload",
+        "remark": "单图",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "LIKE",
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "imgs",
+        "formtype": "multiUpload",
+        "remark": "多图",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "LIKE",
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType":"BT",
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}

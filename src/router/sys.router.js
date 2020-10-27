@@ -104,6 +104,21 @@ export default [
         }
       },
       {
+        path: '/sys/notice/index',
+        name: 'sys:notice:index',
+        meta: {
+          icon: '',
+          title: '通知公告',
+          access: ['admin', 'sys:notice:index'],
+          notCache: true
+        },
+        component: (resolve) => {
+          import('@/views/modules/sys/notice/index.vue').then(m => {
+            resolve(m)
+          })
+        }
+      },
+      {
         path: '/sys/requestLog/index',
         name: 'sys:requestLog:index',
         meta: {
