@@ -75,7 +75,7 @@
     <!--end========分页===========end--><{/if}>
     <!--start========弹框===========start-->
     <el-dialog :title="title" :visible.sync="isOpenDialog" width="<{if table.dialogWidth}><{table.dialogWidth}><{else}>600px<{/if}>" append-to-body @close="handleCancel"<{if table.isTree==true}> destroy-on-close<{/if}>>
-      <component<{if table.isTree==true}> is-tree<{/if}}> :ref="currentView" :is="currentView" :id="id"></component>
+      <component<{if table.isTree==true}> is-tree<{/if}}> :ref="currentView" :is="currentView" v-if="isOpenDialog" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
         <el-button @click="handleCancel">取 消</el-button>
