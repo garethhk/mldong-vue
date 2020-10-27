@@ -1,7 +1,7 @@
 <template>
   <el-form ref="form" :model="form" :inline="true">
     <el-form-item label="岗位名称" prop="m_EQ_name">
-      <el-input v-model="form.m_EQ_name" placeholder="请输入岗位名称" size="small" style="width: 240px"></el-input>
+      <el-input v-model="form.m_LIKE_name" placeholder="请输入岗位名称" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="岗位编码" prop="m_EQ_code">
       <el-input v-model="form.m_EQ_code" placeholder="请输入岗位编码" size="small" style="width: 240px"></el-input>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       form: {
-        m_EQ_name: undefined,
+        m_LIKE_name: undefined,
         m_EQ_code: undefined,
         m_EQ_isEnabled: undefined,
         m_BT_createTime: undefined

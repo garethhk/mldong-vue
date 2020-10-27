@@ -1,13 +1,13 @@
 <template>
   <el-form ref="form" :model="form" :inline="true">
     <el-form-item label="用户名" prop="m_EQ_userName">
-      <el-input v-model="form.m_EQ_userName" placeholder="请输入用户名" size="small" style="width: 240px"></el-input>
+      <el-input v-model="form.m_LIKE_userName" placeholder="请输入用户名" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="姓名" prop="m_EQ_realName">
-      <el-input v-model="form.m_EQ_realName" placeholder="请输入姓名" size="small" style="width: 240px"></el-input>
+      <el-input v-model="form.m_LIKE_realName" placeholder="请输入姓名" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="手机号" prop="m_EQ_mobilePhone">
-      <el-input v-model="form.m_EQ_mobilePhone" placeholder="请输入手机号" size="small" style="width: 240px"></el-input>
+      <el-input v-model="form.m_LIKE_mobilePhone" placeholder="请输入手机号" size="small" style="width: 240px"></el-input>
     </el-form-item>
     <el-form-item label="是否锁定" prop="m_EQ_isLocked">
       <m-dict size="small" mode="searchForm" v-model="form.m_EQ_isLocked" dict-key="yes_no"></m-dict>
@@ -37,9 +37,9 @@ export default {
   data() {
     return {
       form: {
-        m_EQ_userName: undefined,
-        m_EQ_realName: undefined,
-        m_EQ_mobilePhone: undefined,
+        m_LIKE_userName: undefined,
+        m_LIKE_realName: undefined,
+        m_LIKE_mobilePhone: undefined,
         m_EQ_isLocked: undefined,
         m_BT_createTime: undefined
       }

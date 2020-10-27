@@ -1,8 +1,16 @@
 <template>
   <div class="app-container">
-    <el-row>
+    <el-row :gutter="20">
       <el-col :span="4">
-        <el-tree ref="ref" :data="deptData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick"></el-tree>
+        <el-input
+          size="small"
+          clearable
+          placeholder="请输入部门名称"
+          prefix-icon="el-icon-search"
+          style="margin-bottom: 20px"
+          v-model="deptName">
+        </el-input>
+        <el-tree ref="tree" :data="deptData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"></el-tree>
       </el-col>
       <el-col :span="20">
         <!--start========头部折叠面板===========start-->
@@ -159,7 +167,13 @@ export default {
       },
       oldDeptData: [],
       deptData: [],
-      m_IN_deptId: undefined
+      m_IN_deptId: undefined,
+      deptName: undefined
+    }
+  },
+  watch: {
+    deptName(val) {
+      this.$refs.tree.filter(val)
     }
   },
   created() {
@@ -263,6 +277,10 @@ export default {
       ids.push(...this.$util.getChildren(this.oldDeptData, ids[0], false).map(item => { return item.id }))
       this.m_IN_deptId = ids
       this.requestData()
+    },
+    filterNode(value, data) {
+      if (!value) return true
+      return data.name.indexOf(value) !== -1
     }
   }
 }
