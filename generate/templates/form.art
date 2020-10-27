@@ -30,6 +30,15 @@
     </el-form-item><{else if $value.formtype == 'selectTree'}>
     <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
       <m-select-tree<{if $value.ext.showRoot==false}> :show-root="false"<{/if}><{if $value.ext.multiple}> multiple<{/if}><{if $value.ext.defaultExpandAll}> default-expand-all<{/if}> :is-edit="isEdit||isTree" v-model="form.<{$value.javaProperty}>" url="<{$value.ext.url}>"<{if $value.ext.placeholder}> placeholder="$value.ext.placeholder"<{/if}><{if $value.ext.dialogTitle}> dialog-title="$value.ext.dialogTitle"<{/if}><{if $value.ext.dialogWidth}> dialog-width="$value.ext.dialogWidth"<{/if}>></m-select-tree>
+    </el-form-item><{else if $value.formtype == 'singleUpload'}>
+    <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
+      <m-single-upload v-model="form.<{$value.javaProperty}>"></m-single-upload>
+    </el-form-item><{else if $value.formtype == 'multiUpload'}>
+    <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
+      <m-multi-upload v-model="form.<{$value.javaProperty}>"></m-multi-upload>
+    </el-form-item><{else if $value.formtype == 'tinymce'}>
+    <el-form-item class="m-form-item" label="<{$value.remark}>" prop="<{$value.javaProperty}>">
+      <m-tinymce v-model="form.<{$value.javaProperty}>"></m-tinymce>
     </el-form-item><{/if}><{/each}>
   </el-form>
 </template>
