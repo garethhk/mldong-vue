@@ -20,7 +20,7 @@
               <el-page-header title="返回" content="搜索条件" @back="goBack"></el-page-header>
             </template>
             <!--搜索模块-->
-            <m-search ref="searchForm" @on-search="handleSearch" />
+            <m-search ref="searchForm" @on-search="handleSearch" @on-reset="searchReset" />
           </el-collapse-item>
         </el-collapse>
         <!--start========头部折叠面板===========start-->
@@ -281,6 +281,10 @@ export default {
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
+    },
+    searchReset() {
+      this.m_IN_deptId = undefined
+      this.requestData()
     }
   }
 }
