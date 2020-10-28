@@ -7,7 +7,7 @@
           <el-page-header title="返回" content="搜索条件" @back="goBack"></el-page-header>
         </template>
         <!--搜索模块-->
-        <m-search ref="searchForm" @on-search="handleSearch" />
+        <m-search ref="searchForm" @on-search="handleSearch" @on-reset="searchReset" />
       </el-collapse-item>
     </el-collapse>
     <!--start========头部折叠面板===========start--><{else}>
@@ -241,6 +241,10 @@ export default {
       if (typeof this.$refs[this.currentView].resetFields === 'function') {
         this.$refs[this.currentView].resetFields()
       }
+    },
+    // 搜索重置
+    searchReset() {
+      this.requestData()
     }
   }
 }

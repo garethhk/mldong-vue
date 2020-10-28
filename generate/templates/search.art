@@ -48,6 +48,7 @@ export default {
     // 重置
     resetform(e) {
       this.$refs['form'].resetFields()
+      this.$emit('on-reset', e)
     },
     // 获取表单数据
     getData() {
