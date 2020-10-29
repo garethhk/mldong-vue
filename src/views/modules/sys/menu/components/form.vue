@@ -9,6 +9,9 @@
     <el-form-item class="m-form-item" label="路由名称" prop="routeName">
       <el-input type="text" v-model="form.routeName" placeholder="请输入路由名称"></el-input>
     </el-form-item>
+    <el-form-item class="m-form-item" label="路由图标" prop="icon">
+      <el-input type="text" v-model="form.icon" placeholder="请输入路由图标"></el-input>
+    </el-form-item>
     <el-form-item class="m-form-item" label="是否显示" prop="isShow">
       <m-dict mode="form" v-model="form.isShow" dict-key="yes_no"></m-dict>
     </el-form-item>
@@ -43,7 +46,8 @@ export default {
         routeName: undefined,
         isShow: 2,
         sort: undefined,
-        id: undefined
+        id: undefined,
+        icon: undefined
       },
       rules: {
         parentId: [

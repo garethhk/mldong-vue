@@ -109,3 +109,14 @@ export function saveUserRole(data) {
     data
   })
 }
+/**
+ * 获取当前用户路由列表
+ * @param {*} data
+ */
+export function getRouters(data) {
+  return request({
+    url: '/sys/rbac/getRouters',
+    method: 'post',
+    data
+  })
+}

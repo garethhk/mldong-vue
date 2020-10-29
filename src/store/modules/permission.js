@@ -1,4 +1,6 @@
-import { asyncRoutes, constantRoutes } from '@/router'
+import { constantRoutes } from '@/router'
+import { getRouters } from '@/api/sys/sys.rbac.service'
+import Layout from '@/layout/index'
 
 /**
  * Use meta.access to determine if the current user has permission
@@ -46,24 +48,24 @@ function getMenu(access, menus) {
   return null
 }
 // 对菜单进行排序
-function sortRouters(accessedRouters) {
-  for (let i = 0; i < accessedRouters.length; i++) {
-    var router = accessedRouters[i]
-    if (router.children && router.children.length > 0) {
-      router.children.sort(compare('sort'))
-    }
-  }
-  accessedRouters.sort(compare('sort'))
-}
+// function sortRouters(accessedRouters) {
+//   for (let i = 0; i < accessedRouters.length; i++) {
+//     var router = accessedRouters[i]
+//     if (router.children && router.children.length > 0) {
+//       router.children.sort(compare('sort'))
+//     }
+//   }
+//   accessedRouters.sort(compare('sort'))
+// }
 
 // 升序比较函数
-function compare(p) {
-  return function(m, n) {
-    var a = m[p]
-    var b = n[p]
-    return a - b
-  }
-}
+// function compare(p) {
+//   return function(m, n) {
+//     var a = m[p]
+//     var b = n[p]
+//     return a - b
+//   }
+// }
 /**
  * Filter asynchronous routing tables by recursion
  * @param routes asyncRoutes
@@ -85,6 +87,28 @@ export function filterAsyncRoutes(routes, menus) {
   return res
 }
 
+// 遍历后台传来的路由字符串，转换为组件对象
+function filterAsyncRouter(asyncRouterMap) {
+  return asyncRouterMap.filter(route => {
+    if (route.component) {
+      // Layout组件特殊处理
+      if (route.component === 'Layout') {
+        route.component = Layout
+      } else {
+        route.component = loadView(route.component)
+      }
+    }
+    if (route.children != null && route.children && route.children.length) {
+      route.children = filterAsyncRouter(route.children)
+    }
+    return true
+  })
+}
+
+export const loadView = (view) => { // 路由懒加载
+  return (resolve) => require([`@/views/modules/${view}`], resolve)
+}
+
 const state = {
   routes: [],
   addRoutes: []
@@ -100,11 +124,17 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, menus) {
     return new Promise(resolve => {
-      var accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
-      // 对菜单进行排序
-      sortRouters(accessedRoutes)
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
+      getRouters({}).then(res => {
+        const accessedRoutes = filterAsyncRouter(res.data)
+        accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
+        commit('SET_ROUTES', accessedRoutes)
+        resolve(accessedRoutes)
+      })
+      // var accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
+      // // 对菜单进行排序
+      // sortRouters(accessedRoutes)
+      // commit('SET_ROUTES', accessedRoutes)
+      // resolve(accessedRoutes)
     })
   }
 }
