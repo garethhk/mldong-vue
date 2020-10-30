@@ -10,7 +10,24 @@
       <el-input type="text" v-model="form.routeName" placeholder="请输入路由名称"></el-input>
     </el-form-item>
     <el-form-item class="m-form-item" label="路由图标" prop="icon">
-      <el-input type="text" v-model="form.icon" placeholder="请输入路由图标"></el-input>
+      <el-popover
+        placement="bottom-start"
+        width="460"
+        trigger="click"
+        @show="$refs['iconSelect'].reset()"
+      >
+        <IconSelect ref="iconSelect" @selected="selected" />
+        <el-input slot="reference" v-model="form.icon" placeholder="点击选择图标" readonly>
+          <svg-icon
+            v-if="form.icon"
+            slot="prefix"
+            :icon-class="form.icon"
+            class="el-input__icon"
+            style="height: 32px;width: 16px;"
+          />
+          <i v-else slot="prefix" class="el-icon-search el-input__icon" />
+        </el-input>
+      </el-popover>
     </el-form-item>
     <el-form-item class="m-form-item" label="是否显示" prop="isShow">
       <m-dict mode="form" v-model="form.isShow" dict-key="yes_no"></m-dict>
@@ -22,8 +39,10 @@
 </template>
 <script>
 import { save as saveMenu, update as updateMenu, get as getMenu } from '@/api/sys/sys.menu.service.js'
+import IconSelect from '@/components/IconSelect'
 
 export default {
+  components: { IconSelect },
   props: {
     isEdit: {
       type: Boolean,
@@ -77,6 +96,10 @@ export default {
     this.getDetails()
   },
   methods: {
+    // 选择图标
+    selected(name) {
+      this.form.icon = name
+    },
     submit(isShowMessage = 1) {
       return new Promise((resolve, reject) => {
         this.$refs['form'].validate((valid) => {
