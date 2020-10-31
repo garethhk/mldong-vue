@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">mldong快速开发平台</h3>
+        <h3 class="title">{{ title }}</h3>
       </div>
 
       <el-form-item prop="username">
@@ -43,7 +43,7 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
-      <div class="tips">
+      <div class="tips" v-if="showPassword">
         <span style="margin-right:20px;">用户名: admin</span>
         <span> 密码：mldong@321</span>
       </div>
@@ -73,6 +73,8 @@ export default {
       }
     }
     return {
+      title: this.$store.state.settings.title,
+      showPassword: this.$store.state.settings.showPassword,
       loginForm: {
         username: 'admin',
         password: 'mldong@321'

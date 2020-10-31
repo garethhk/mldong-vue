@@ -1,98 +1,103 @@
 <template>
-  <div class="dashboard-container">
-    <el-row type="flex">
-      <el-col :span="8">
-        <h3>自定义布局</h3>
-        <m-dict v-model="form.roleType" dict-key="sys_role_role_type">
-          <template v-slot:default="{ dict }">
-            <el-select v-model="form.roleType" v-if="dict.items">
-              <el-option
-                v-for="item in dict.items"
-                :key="item.dictItemValue"
-                :label="item.name"
-                :value="item.dictItemValue">
-              </el-option>
-            </el-select>
-          </template>
-        </m-dict>
-        <h3>表单布局模式</h3>
-        <m-dict v-model="form.roleType" dict-key="sys_role_role_type"></m-dict>
-        <h5>当前值：{{ form.roleType }}</h5>
-        <h3>列表布局模式</h3>
-        <m-dict mode="list" v-model="form.roleType" dict-key="sys_role_role_type"></m-dict>
-        <h3>搜索布局模式</h3>
-        <m-dict mode="searchForm" v-model="form.roleType" dict-key="sys_role_role_type"></m-dict>
+  <div class="dashboard-editor-container">
+
+    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+      <line-chart :chart-data="lineChartData" />
+    </el-row>
+
+    <el-row :gutter="32">
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <raddar-chart />
+        </div>
       </el-col>
-      <el-col :span="8">
-        <h3>选择单个</h3>
-        <m-select v-model="userId" url="sys/user/list" value-key="id" label-key="userName" search-key="userName"></m-select>
-        <h3>选择单个-修改模式</h3>
-        <m-select is-edit v-model="form.userId" url="sys/user/list" value-key="id" label-key="userName" search-key="userName"></m-select>
-        <h3>选择多个</h3>
-        <m-select multiple v-model="userIds" url="sys/user/list" value-key="id" label-key="userName" search-key="userName"></m-select>
-        <h3>选择多个-修改模式</h3>
-        <m-select multiple is-edit v-model="form.userIds" url="sys/user/list" value-key="id" label-key="userName" search-key="userName"></m-select>
-        <h3>自定义布局</h3>
-        <m-select v-model="userId" url="sys/user/list" value-key="id" label-key="userName" search-key="userName">
-          <template v-slot:default="{ option }">
-            <span>{{ option.id }}--{{ option.userName }}</span>
-          </template>
-        </m-select>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <pie-chart />
+        </div>
       </el-col>
-      <el-col :span="8">
-        <h3>选择单个</h3>
-        <h5>当前值：{{ parentId }}</h5>
-        <m-select-tree dialog-title="请选择父菜单" v-model="parentId" url="sys/menu/list" value-key="id" label-key="name"></m-select-tree>
-        <h3>选择单个-修改模式</h3>
-        <h5>当前值：{{ form.parentId }}</h5>
-        <m-select-tree dialog-title="请选择父菜单" v-model="form.parentId" is-edit url="sys/menu/list" value-key="id" label-key="name"></m-select-tree>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <bar-chart />
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import PanelGroup from './components/PanelGroup'
+import LineChart from './components/LineChart'
+import RaddarChart from './components/RaddarChart'
+import PieChart from './components/PieChart'
+import BarChart from './components/BarChart'
+
+const lineChartData = {
+  newVisitis: {
+    expectedData: [100, 120, 161, 134, 105, 160, 165],
+    actualData: [120, 82, 91, 154, 162, 140, 145]
+  },
+  messages: {
+    expectedData: [200, 192, 120, 144, 160, 130, 140],
+    actualData: [180, 160, 151, 106, 145, 150, 130]
+  },
+  purchases: {
+    expectedData: [80, 100, 121, 104, 105, 90, 100],
+    actualData: [120, 90, 100, 138, 142, 130, 130]
+  },
+  shoppings: {
+    expectedData: [130, 140, 141, 142, 145, 150, 160],
+    actualData: [120, 82, 91, 154, 162, 140, 130]
+  }
+}
 
 export default {
-  name: 'Dashboard',
+  name: 'DashboardAdmin',
+  components: {
+    PanelGroup,
+    LineChart,
+    RaddarChart,
+    PieChart,
+    BarChart
+  },
   data() {
     return {
-      form: {
-        roleType: 20,
-        userId: undefined,
-        userIds: [],
-        parentId: undefined
-      },
-      userId: undefined,
-      userIds: [],
-      parentId: undefined
+      lineChartData: lineChartData.newVisitis
     }
   },
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  },
-  created() {
-    // 模拟修改异步更新
-    setTimeout(() => {
-      this.$set(this.form, 'userId', 1)
-      this.$set(this.form, 'userIds', [1, 9])
-      this.$set(this.form, 'parentId', 1)
-    }, 2000)
+  methods: {
+    handleSetLineChartData(type) {
+      this.lineChartData = lineChartData[type]
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
+.dashboard-editor-container {
+  padding: 32px;
+  background-color: rgb(240, 242, 245);
+  position: relative;
+
+  .github-corner {
+    position: absolute;
+    top: 0px;
+    border: 0;
+    right: 0;
   }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
+
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width:1024px) {
+  .chart-wrapper {
+    padding: 8px;
   }
 }
 </style>

@@ -5,7 +5,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show the settings right-panel
    */
-  showSettings: true,
+  showSettings: false,
   /**
    * @type {boolean} true | false
    * @description Whether fix the header
@@ -21,5 +21,9 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: true
+  tagsView: true,
+  /**
+   * 登录页密码是否显示
+   */
+  showPassword: true
 }
