@@ -26,7 +26,7 @@
 git clone https://gitee.com/mldong/mldong-vue/
 
 # 进入项目目录
-cd vue-admin-template
+cd mldong-vue
 
 # 安装依赖
 npm install

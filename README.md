@@ -26,7 +26,7 @@
 git clone https://gitee.com/mldong/mldong-vue/
 
 # 进入项目目录
-cd vue-admin-template
+cd mldong-vue
 
 # 安装依赖
 npm install
@@ -214,4 +214,6 @@ node generate/index.js -f sys_role.json -co 1
 
 [打造一款适合自己的快速开发框架-前端篇之选择树组件设计与实现](https://juejin.im/post/5ef563185188252e9a1fe26a) 
 
- [打造一款适合自己的快速开发框架-前端篇之代码生成器](https://juejin.im/post/5ef6a6b16fb9a07e693a5eae) 
+[打造一款适合自己的快速开发框架-前端篇之代码生成器](https://juejin.im/post/5ef6a6b16fb9a07e693a5eae) 
+ 
+[打造一款适合自己的快速开发框架-前端篇之权限管理](https://juejin.im/post/5efcb274f265da22df3cc314) 
