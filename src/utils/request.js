@@ -26,7 +26,7 @@ service.interceptors.request.use(
       Object.keys(config.data).forEach(item => {
         if (item.startsWith('m_')) {
           var value = config.data[item]
-          if (value !== undefined) {
+          if (value !== undefined && value !== '') {
             var arr = item.split('_')
             if (arr.length === 3) {
               whereParams.push({
@@ -41,7 +41,7 @@ service.interceptors.request.use(
           // 处理简单的or语句
           value = config.data[item]
           arr = item.split('_')
-          if (value !== undefined) {
+          if (value !== undefined && value !== '') {
             if (arr.length === 3) {
               whereParams.push({
                 operateType: 'OR',
