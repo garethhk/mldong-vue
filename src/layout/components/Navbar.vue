@@ -70,7 +70,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'device'
     ])
   },
   methods: {
