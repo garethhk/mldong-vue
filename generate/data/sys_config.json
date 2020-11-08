@@ -1,0 +1,101 @@
+{
+  "moduleName": "sys",
+  "table": {
+    "fullscreen": false,
+    "remark": "参数",
+    "isTree": false,
+    "dialogWidth": "50%",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "sys_config",
+    "className": "SysConfig",
+    "tableCameName": "sysConfig",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "configName",
+        "formtype": "text",
+        "remark": "参数名称",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "LIKE",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "configKey",
+        "formtype": "text",
+        "remark": "参数键名",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "configValue",
+        "formtype": "textarea",
+        "remark": "参数键值",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "EQ",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isSystem",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "系统内置",
+        "defaultValue": 2
+        ,
+        "searchable": true,
+        "required": true,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "remark",
+        "formtype": "textarea",
+        "remark": "备注",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "EQ",
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType":"BT",
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}
