@@ -120,3 +120,14 @@ export function getRouters(data) {
     data
   })
 }
+/**
+ * 获取当前用户接口清单
+ * @param {*} data
+ */
+export function listApiList(data) {
+  return request({
+    url: '/sys/rbac/listApiList',
+    method: 'post',
+    data
+  })
+}
