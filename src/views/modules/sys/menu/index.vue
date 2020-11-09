@@ -23,7 +23,12 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column prop="routeName" label="路由名称">
+      <el-table-column prop="path" label="路由地址">
+        <template slot-scope="scope">
+          {{ scope.row.path }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="routeName" label="权限标识">
         <template slot-scope="scope">
           {{ scope.row.routeName }}
         </template>

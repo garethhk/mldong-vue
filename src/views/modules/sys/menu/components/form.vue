@@ -6,10 +6,13 @@
     <el-form-item class="m-form-item" label="菜单名称" prop="name">
       <el-input type="text" v-model="form.name" placeholder="请输入菜单名称"></el-input>
     </el-form-item>
-    <el-form-item class="m-form-item" label="路由名称" prop="routeName">
-      <el-input type="text" v-model="form.routeName" placeholder="请输入路由名称"></el-input>
+    <el-form-item class="m-form-item" label="路由地址" prop="path">
+      <el-input type="text" v-model="form.path" placeholder="请输入路由地址"></el-input>
     </el-form-item>
-    <el-form-item class="m-form-item" label="路由图标" prop="icon">
+    <el-form-item class="m-form-item" label="权限标识" prop="routeName">
+      <el-input type="text" v-model="form.routeName" placeholder="请输入权限标识"></el-input>
+    </el-form-item>
+    <el-form-item class="m-form-item" label="菜单图标" prop="icon">
       <el-popover
         placement="bottom-start"
         width="460"
@@ -34,6 +37,9 @@
     </el-form-item>
     <el-form-item class="m-form-item" label="排序" prop="sort">
       <el-input type="text" v-model="form.sort" placeholder="请输入排序"></el-input>
+    </el-form-item>
+    <el-form-item class="m-form-item" label="备注" prop="remark">
+      <el-input type="textarea" v-model="form.remark" placeholder="请输入备注"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -63,10 +69,12 @@ export default {
         parentId: undefined,
         name: undefined,
         routeName: undefined,
+        path: undefined,
         isShow: 2,
         sort: undefined,
         id: undefined,
-        icon: undefined
+        icon: undefined,
+        remark: undefined
       },
       rules: {
         parentId: [
@@ -76,7 +84,10 @@ export default {
           { required: true, message: '菜单名称不能为空', trigger: 'blur' }
         ],
         routeName: [
-          { required: true, message: '路由名称不能为空', trigger: 'blur' }
+          { required: true, message: '权限标识不能为空', trigger: 'blur' }
+        ],
+        path: [
+          { required: true, message: '路由地址不能为空', trigger: 'blur' }
         ],
         isShow: [
           { required: true, message: '是否显示不能为空', trigger: 'blur' }
