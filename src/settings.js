@@ -25,5 +25,9 @@ module.exports = {
   /**
    * 登录页密码是否显示
    */
-  showPassword: true
+  showPassword: true,
+  /**
+   * 图片验证码是否显示
+   */
+  showCaptcha: true
 }

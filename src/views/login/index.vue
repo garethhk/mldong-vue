@@ -6,15 +6,15 @@
         <h3 class="title">{{ title }}</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="userName">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
+          ref="userName"
+          v-model="loginForm.userName"
           placeholder="请输入用户名"
-          name="username"
+          name="userName"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -40,7 +40,22 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-
+      <el-form-item prop="captchaCode" v-if="showCaptcha">
+        <span class="svg-container">
+          <svg-icon icon-class="validCode" />
+        </span>
+        <el-input
+          v-model="loginForm.captchaCode"
+          auto-complete="off"
+          placeholder="验证码"
+          style="width: 63%"
+          @keyup.enter.native="handleLogin"
+        >
+        </el-input>
+        <div class="login-code">
+          <img :src="codeUrl" @click="getCode" class="login-code-img" />
+        </div>
+      </el-form-item>
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div class="tips" v-if="showPassword">
@@ -54,7 +69,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import { captchaImage } from '@/api/user.js'
 export default {
   name: 'Login',
   data() {
@@ -75,17 +90,22 @@ export default {
     return {
       title: this.$store.state.settings.title,
       showPassword: this.$store.state.settings.showPassword,
+      showCaptcha: this.$store.state.settings.showCaptcha,
       loginForm: {
-        username: 'admin',
-        password: 'mldong@321'
+        userName: 'admin',
+        password: 'mldong@321',
+        captchaCode: undefined,
+        uuid: undefined
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        userName: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        captchaCode: [{ required: this.showCaptcha, trigger: 'blur', message: '验证码不能为空' }]
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      codeUrl: undefined
     }
   },
   watch: {
@@ -96,7 +116,18 @@ export default {
       immediate: true
     }
   },
+  created() {
+    if (this.showCaptcha) {
+      this.getCode()
+    }
+  },
   methods: {
+    getCode() {
+      captchaImage().then(res => {
+        this.codeUrl = 'data:image/jpeg;base64,' + res.data.img
+        this.loginForm.uuid = res.data.uuid
+      })
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -116,6 +147,8 @@ export default {
             this.loading = false
           }).catch(() => {
             this.loading = false
+            this.getCode()
+            this.loginForm.captchaCode = undefined
           })
         } else {
           console.log('error submit!!')
@@ -235,5 +268,17 @@ $light_gray:#eee;
     cursor: pointer;
     user-select: none;
   }
+}
+.login-code {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  img {
+    cursor: pointer;
+    vertical-align: middle;
+  }
+}
+.login-code-img {
+  height: 42px;
 }
 </style>

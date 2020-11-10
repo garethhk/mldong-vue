@@ -7,8 +7,12 @@ export function login(data) {
     url: '/sys/login',
     method: 'post',
     data: {
-      userName: data.username,
+      userName: data.userName,
       password: data.password
+    },
+    params: {
+      captchaCode: data.captchaCode,
+      uuid: data.uuid
     }
   })
 }
@@ -28,6 +32,15 @@ export function getInfo(token) {
 export function logout() {
   return request({
     url: '/sys/logout',
+    method: 'post'
+  })
+}
+/**
+ * 获取图片验证码
+ */
+export function captchaImage() {
+  return request({
+    url: '/captchaImage',
     method: 'post'
   })
 }

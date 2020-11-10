@@ -1,7 +1,7 @@
 import variables from '@/styles/element-variables.scss'
 import defaultSettings, { title } from '@/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, tagsView, showPassword } = defaultSettings
+const { showSettings, fixedHeader, sidebarLogo, tagsView, showPassword, showCaptcha } = defaultSettings
 
 const state = {
   title: title,
@@ -10,7 +10,8 @@ const state = {
   tagsView: tagsView,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo,
-  showPassword: showPassword
+  showPassword: showPassword,
+  showCaptcha: showCaptcha
 }
 
 const mutations = {
