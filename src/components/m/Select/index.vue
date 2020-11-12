@@ -5,6 +5,7 @@
       filterable
       :multiple="multiple"
       remote
+      :clearable="clearable"
       :loading="loading"
       :remote-method="requestData"
       :placeholder="placeholder"
@@ -61,6 +62,10 @@ export default {
     placeholder: { //  占位符
       type: String,
       default: '请选择'
+    },
+    clearable: { // 是否可清空
+      type: Boolean,
+      default: true
     }
   },
   data() {
