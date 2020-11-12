@@ -115,6 +115,7 @@ export default {
     // 子组件值变化要通过父组件
     handleChange(value) {
       this.$emit('input', value)
+      this.$emit('change', value)
     }
   }
 }

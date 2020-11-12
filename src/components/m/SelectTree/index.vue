@@ -142,6 +142,7 @@ export default {
       this.valueId = node[this.props.value]
       this.$emit('input', this.valueId)
       this.defaultExpandedKey = []
+      this.$emit('change', this.valueId)
     },
     // 清除选中
     clearHandle() {
@@ -150,6 +151,7 @@ export default {
       this.defaultExpandedKey = []
       this.clearSelected()
       this.$emit('input', null)
+      this.$emit('change', null)
     },
     /* 清空选中样式 */
     clearSelected() {
