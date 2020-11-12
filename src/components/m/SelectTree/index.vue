@@ -12,7 +12,7 @@
         id="tree-option"
         ref="selectTree"
         :accordion="accordion"
-        :data="options"
+        :data="options.length?options:remoteData"
         :props="props"
         :node-key="props.value"
         :default-expanded-keys="defaultExpandedKey"
@@ -86,7 +86,8 @@ export default {
       filterText: '',
       valueId: this.value, // 初始值
       valueTitle: '',
-      defaultExpandedKey: []
+      defaultExpandedKey: [],
+      remoteData: []
     }
   },
   watch: {
@@ -109,7 +110,7 @@ export default {
         }
       }).then(res => {
         if (res.code === 0) {
-          this.options = this.$util.getTree(res.data.rows)
+          this.remoteData = this.$util.getTree(res.data.rows)
         }
         this.initHandle()
       })
