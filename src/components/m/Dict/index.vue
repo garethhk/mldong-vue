@@ -2,11 +2,12 @@
   <div class="m-dict">
     <!--表单布局模式-->
     <slot v-if="mode==='form'" v-bind:dict="dict">
-      <el-select :size="size" v-model="mValue" v-if="dict.items" @change="handleChange">
+      <el-select :disabled="disabled" :size="size" v-model="mValue" v-if="dict.items" @change="handleChange">
         <el-option
           v-for="item in dict.items"
           :key="item.dictItemValue"
           :label="item.name"
+          :disabled="item.disabled"
           :value="item.dictItemValue">
         </el-option>
       </el-select>
@@ -19,12 +20,13 @@
     </slot>
     <!--搜索表单布局模式-->
     <slot v-else-if="mode==='searchForm'" v-bind:dict="dict">
-      <el-select :size="size" v-model="mValue" v-if="dict.items" @change="handleChange">
+      <el-select :disabled="disabled" :size="size" v-model="mValue" v-if="dict.items" @change="handleChange">
         <el-option label="所有" :value="undefined"></el-option>
         <el-option
           v-for="item in dict.items"
           :key="item.dictItemValue"
           :label="item.name"
+          :disabled="item.disabled"
           :value="item.dictItemValue">
         </el-option>
       </el-select>
@@ -63,6 +65,10 @@ export default {
     placeholder: { //  占位符
       type: String,
       default: '请选择'
+    },
+    disabled: { //  占位符
+      type: Boolean,
+      default: false
     }
   },
   data() {
