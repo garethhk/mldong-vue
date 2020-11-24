@@ -34,7 +34,13 @@ service.interceptors.request.use(
                 propertyName: arr[2],
                 propertyValue: value
               })
-              delete config.data[item]
+            } else if (arr.length === 4) {
+              whereParams.push({
+                tableAlias: arr[1],
+                operateType: arr[2],
+                propertyName: arr[3],
+                propertyValue: value
+              })
             }
           }
           delete config.data[item]
@@ -53,9 +59,20 @@ service.interceptors.request.use(
                   propertyValue: value
                 }
               })
-              delete config.data[item]
+            } else if (arr.length === 4) {
+              whereParams.push({
+                operateType: 'OR',
+                propertyName: arr[3],
+                propertyValue: {
+                  tableAlias: arr[1],
+                  operateType: arr[2],
+                  propertyName: arr[3],
+                  propertyValue: value
+                }
+              })
             }
           }
+          delete config.data[item]
         }
       })
       if (whereParams.length) {
