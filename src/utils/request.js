@@ -34,6 +34,7 @@ service.interceptors.request.use(
                 propertyName: arr[2],
                 propertyValue: value
               })
+              delete config.data[item]
             }
           }
           delete config.data[item]
@@ -52,9 +53,9 @@ service.interceptors.request.use(
                   propertyValue: value
                 }
               })
+              delete config.data[item]
             }
           }
-          delete config.data[item]
         }
       })
       if (whereParams.length) {
