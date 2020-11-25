@@ -3,7 +3,7 @@
     <el-upload
       :action="useOss?ossUploadUrl:minioUploadUrl"
       :data="useOss?dataObj:null"
-      list-type="picture"
+      :list-type="listType"
       :headers="{'Auth-Token': token}"
       :multiple="false"
       :show-file-list="showFileList"
@@ -13,7 +13,7 @@
       :on-success="handleUploadSuccess"
       :on-preview="handlePreview">
       <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10MB</div>
+      <div slot="tip" class="el-upload__tip">{{ tip }}</div>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible" :modal="false">
       <img width="100%" :src="wrapImgUrl(fileList[0].url)" alt="">
@@ -30,6 +30,18 @@ export default {
     value: {
       type: String,
       default: undefined
+    },
+    listType: {
+      type: String,
+      default: 'picture'
+    },
+    tip: {
+      type: String,
+      default: '只能上传jpg/png文件，且不超过10MB'
+    },
+    bizType: {
+      type: String,
+      default: 'common'
     }
   },
   data() {
@@ -41,7 +53,7 @@ export default {
       dialogVisible: false,
       useOss: false, // 使用oss->true;使用MinIO->false
       ossUploadUrl: '',
-      minioUploadUrl: process.env.VUE_APP_BASE_API + '/sys/uploadRecord/file'
+      minioUploadUrl: process.env.VUE_APP_BASE_API + '/sys/uploadRecord/file?bizType' + this.bizType
     }
   },
   computed: {
