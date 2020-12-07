@@ -20,6 +20,9 @@ service.interceptors.request.use(
       // 这里修改一下请求头与后端一致，X-Token->Auth-Token
       config.headers['Auth-Token'] = getToken()
     }
+    if (config.headers['__IGNORE__']) {
+      return config
+    }
     if (config.data) {
       // 这里对全局的请求参数做处理，主要是拼接查询条件
       var whereParams = []
