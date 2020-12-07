@@ -94,7 +94,7 @@ export default {
       listDictItem({
         pageNum: page.page,
         pageSize: page.limit,
-        dictId: this.id,
+        m_EQ_dictId: this.id,
         ...this.searchForm
       }).then(res => {
         this.loading = false
