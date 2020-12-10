@@ -23,6 +23,11 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
+      <el-table-column prop="icon" label="图标" width="90">
+        <template slot-scope="scope">
+          <svg-icon :icon-class="scope.row.icon" style="height: 30px;width: 16px;" />
+        </template>
+      </el-table-column>
       <el-table-column prop="path" label="路由地址">
         <template slot-scope="scope">
           {{ scope.row.path }}
@@ -33,23 +38,24 @@
           {{ scope.row.routeName }}
         </template>
       </el-table-column>
-      <el-table-column prop="isShow" label="是否显示">
+      <el-table-column prop="isShow" label="是否显示" width="100">
         <template slot-scope="scope">
           <m-dict mode="list" v-model="scope.row.isShow" dict-key="yes_no"></m-dict>
         </template>
       </el-table-column>
-      <el-table-column prop="sort" label="排序">
+      <el-table-column prop="sort" label="排序" width="60">
         <template slot-scope="scope">
           {{ scope.row.sort }}
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
+      <el-table-column prop="createTime" label="创建时间" width="150">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
       </el-table-column>
       <el-table-column
         label="操作"
+        width="280"
         align="center">
         <template slot-scope="scope">
           <el-button v-hasPerm="['admin','sys:menu:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看菜单', 'Details', false)">查看</el-button>
