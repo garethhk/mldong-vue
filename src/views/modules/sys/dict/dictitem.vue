@@ -19,25 +19,15 @@ import { save as saveDict, update as updateDict, get as getDict } from '@/api/sy
 
 export default {
   props: {
-    isEdit: {
-      type: Boolean,
-      default: false
-    },
-    isTree: {
-      type: Boolean,
-      default: false
-    },
     id: {
-      type: [String, Number],
-      default: undefined
-    },
-    dictItemId: {
       type: [String, Number],
       default: undefined
     }
   },
   data() {
     return {
+      dictItemId: undefined,
+      isEdit: false,
       form: {
         name: undefined,
         dictItemValue: undefined,
@@ -55,13 +45,15 @@ export default {
       }
     }
   },
-  watch: {
-    dictItemId(n, o) {
-      this.getDetails()
-    }
-  },
+  // watch: {
+  //   dictItemId(n, o) {
+  //     this.getDetails()
+  //   }
+  // },
   mounted() {
-    this.getDetails()
+    this.$nextTick(() => {
+      this.getDetails()
+    })
   },
   methods: {
     submit(isShowMessage = 1) {
@@ -112,7 +104,7 @@ export default {
       this.$refs['form'].clearValidate()
     },
     getDetails() {
-      if (this.isEdit && this.id) {
+      if (this.isEdit) {
         getDict({
           id: this.dictItemId
         }).then(res => {
