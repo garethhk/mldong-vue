@@ -47,7 +47,6 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -71,6 +70,12 @@ export const constantRoutes = [
       hidden: true,
       component: () => import('@/views/dashboard/demo'),
       meta: { title: '演示', icon: '', affix: true }
+    },
+    {
+      path: '/sys/user/profile',
+      name: 'sys:user:profile',
+      component: () => import('@/views/modules/sys/user/profile/index'),
+      meta: { title: '个人中心' }
     }]
   }
 ]

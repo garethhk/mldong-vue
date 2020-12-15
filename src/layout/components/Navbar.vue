@@ -23,9 +23,9 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+          <router-link to="/sys/user/profile">
             <el-dropdown-item>
-              首页
+              个人中心
             </el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://gitee.com/mldong/mldong-vue">

@@ -65,3 +65,42 @@ export function listWithExt(data) {
     data
   })
 }
+/** 获取当前用户信息
+ * @param {Object} data
+ */
+export function getProfile() {
+  return request({
+    url: '/sys/user/getProfile',
+    method: 'post'
+  })
+}
+/** 修改密码
+ * @param {Object} data
+ */
+export function updatePwd(data) {
+  return request({
+    url: '/sys/user/updatePwd',
+    method: 'post',
+    data
+  })
+}
+/** 修改头像
+ * @param {Object} data
+ */
+export function uploadAvatar(data) {
+  return request({
+    url: '/sys/user/uploadAvatar',
+    method: 'post',
+    data
+  })
+}
+/** 修改个人信息
+ * @param {Object} data
+ */
+export function updateProfile(data) {
+  return request({
+    url: '/sys/user/updateProfile',
+    method: 'post',
+    data
+  })
+}
