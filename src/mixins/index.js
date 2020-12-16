@@ -54,6 +54,15 @@ const mixins = {
       this.drawerTitle = title || ''
       this.isOpenDrawer = true
       this.drawerView = drawerView
+    },
+    msgSuccess(msg) {
+      this.$message({ showClose: true, message: msg, type: 'success' })
+    },
+    msgError(msg) {
+      this.$message({ showClose: true, message: msg, type: 'error' })
+    },
+    msgInfo(msg) {
+      this.$message.info(msg)
     }
   }
 }

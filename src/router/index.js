@@ -75,7 +75,8 @@ export const constantRoutes = [
       path: '/sys/user/profile',
       name: 'sys:user:profile',
       component: () => import('@/views/modules/sys/user/profile/index'),
-      meta: { title: '个人中心' }
+      meta: { title: '个人中心' },
+      hidden: true
     }]
   }
 ]

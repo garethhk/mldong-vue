@@ -55,12 +55,15 @@
 import store from '@/store'
 import { VueCropper } from 'vue-cropper'
 import { uploadAvatar } from '@/api/sys/sys.user.service.js'
-
+import Avatar from '@/assets/logo-min.jpg'
 export default {
   components: { VueCropper },
   props: {
-    user: {
-      type: Object
+    form: {
+      type: Object,
+      default() {
+        return undefined
+      }
     }
   },
   data() {
@@ -70,7 +73,7 @@ export default {
       // 弹出层标题
       title: '修改头像',
       options: {
-        img: store.getters.avatar, // 裁剪图片的地址
+        img: store.getters.avatar ? store.getters.avatar : Avatar, // 裁剪图片的地址
         autoCrop: true, // 是否默认生成截图框
         autoCropWidth: 200, // 默认生成截图框宽度
         autoCropHeight: 200, // 默认生成截图框高度
@@ -102,7 +105,7 @@ export default {
     },
     // 上传预处理
     beforeUpload(file) {
-      if (file.type.indexOf('image/') == -1) {
+      if (file.type.indexOf('image/') === -1) {
         this.msgError('文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。')
       } else {
         const reader = new FileReader()
