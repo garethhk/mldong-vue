@@ -59,7 +59,7 @@ import Avatar from '@/assets/logo-min.jpg'
 export default {
   components: { VueCropper },
   props: {
-    form: {
+    user: {
       type: Object,
       default() {
         return undefined
