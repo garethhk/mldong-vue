@@ -107,7 +107,7 @@ service.interceptors.response.use(
       })
 
       // 这里的状态码可根据后端状态码进行修改
-      if (res.code === 401) {
+      if (res.code === 99990401 || res.code === 99990401) {
         // to re-login
         MessageBox.confirm('您已经退出了，将离开该页面，确定退出？', {
           confirmButtonText: '重新登录',
