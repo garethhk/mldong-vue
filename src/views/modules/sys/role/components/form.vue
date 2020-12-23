@@ -9,6 +9,9 @@
     <el-form-item class="m-form-item" label="角色类型" prop="roleType">
       <m-dict mode="form" v-model="form.roleType" dict-key="sys_role_role_type"></m-dict>
     </el-form-item>
+    <el-form-item class="m-form-item" label="数据范围" prop="dataScope">
+      <m-dict mode="form" v-model="form.dataScope" dict-key="sys_role_data_scope"></m-dict>
+    </el-form-item>
     <el-form-item class="m-form-item" label="是否启用" prop="isEnabled">
       <m-dict mode="form" v-model="form.isEnabled" dict-key="yes_no"></m-dict>
     </el-form-item>
@@ -39,7 +42,8 @@ export default {
         roleType: 10,
         isEnabled: 2,
         remark: undefined,
-        id: undefined
+        id: undefined,
+        dataScope: 10
       },
       rules: {
         name: [
@@ -50,6 +54,9 @@ export default {
         ],
         roleType: [
           { required: true, message: '角色类型不能为空', trigger: 'blur' }
+        ],
+        dataScope: [
+          { required: true, message: '数据范围不能为空', trigger: 'blur' }
         ],
         isEnabled: [
           { required: true, message: '是否启用不能为空', trigger: 'blur' }

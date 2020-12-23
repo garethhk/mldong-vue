@@ -43,12 +43,17 @@
           {{ scope.row.roleKey }}
         </template>
       </el-table-column>
-      <el-table-column prop="roleType" label="角色类型">
+      <el-table-column prop="roleType" label="角色类型" width="100" align="center">
         <template slot-scope="scope">
           <m-dict mode="list" v-model="scope.row.roleType" dict-key="sys_role_role_type"></m-dict>
         </template>
       </el-table-column>
-      <el-table-column prop="isEnabled" label="是否启用">
+      <el-table-column prop="dataScope" label="数据范围" width="130" align="center">
+        <template slot-scope="scope">
+          <m-dict mode="list" v-model="scope.row.dataScope" dict-key="sys_role_data_scope"></m-dict>
+        </template>
+      </el-table-column>
+      <el-table-column prop="isEnabled" label="是否启用" width="80" align="center">
         <template slot-scope="scope">
           <m-dict mode="list" v-model="scope.row.isEnabled" dict-key="yes_no"></m-dict>
         </template>
@@ -58,13 +63,14 @@
           {{ scope.row.remark }}
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
+      <el-table-column prop="createTime" label="创建时间" width="150">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
       </el-table-column>
       <el-table-column
         label="操作"
+        min-width="220"
         align="center">
         <template slot-scope="scope">
           <el-button v-hasPerm="['admin','sys:role:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看角色', 'Details', false)">查看</el-button>
