@@ -10,7 +10,7 @@
           style="margin-bottom: 20px"
           v-model="deptName">
         </el-input>
-        <el-tree ref="tree" :data="deptData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"></el-tree>
+        <el-tree ref="tree" highlight-current :data="deptData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"></el-tree>
       </el-col>
       <el-col :span="20">
         <!--start========头部折叠面板===========start-->
