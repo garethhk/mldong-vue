@@ -112,7 +112,9 @@ export default {
         if (res.code === 0) {
           this.remoteData = this.$util.getTree(res.data.rows)
         }
-        this.initHandle()
+        this.$nextTick(() => {
+          this.initHandle()
+        })
       })
     }
   },
@@ -120,9 +122,12 @@ export default {
     // 初始化值
     initHandle() {
       if (this.valueId) {
-        this.valueTitle = this.$refs.selectTree.getNode(this.valueId).data[this.props.label] // 初始化显示
-        this.$refs.selectTree.setCurrentKey(this.valueId) // 设置默认选中
-        this.defaultExpandedKey = [this.valueId] // 设置默认展开
+        var node = this.$refs.selectTree.getNode(this.valueId)
+        if (node) {
+          this.valueTitle = node.data[this.props.label] // 初始化显示
+          this.$refs.selectTree.setCurrentKey(this.valueId) // 设置默认选中
+          this.defaultExpandedKey = [this.valueId] // 设置默认展开
+        }
       }
       this.initScroll()
     },
