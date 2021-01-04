@@ -28,33 +28,39 @@
           {{ scope.row.icon }}
         </template>
       </el-table-column>
-      <el-table-column prop="isNav" label="是否导航">
+      <el-table-column prop="isNav" label="是否导航" width="80">
         <template slot-scope="scope">
           <m-dict mode="list" v-model="scope.row.isNav" dict-key="yes_no"></m-dict>
         </template>
       </el-table-column>
-      <el-table-column prop="isShow" label="是否显示">
+      <el-table-column prop="isShow" label="是否显示" width="80">
         <template slot-scope="scope">
           <m-dict mode="list" v-model="scope.row.isShow" dict-key="yes_no"></m-dict>
         </template>
       </el-table-column>
-      <el-table-column prop="sort" label="排序">
+      <el-table-column prop="isPage" label="单页面" width="80">
+        <template slot-scope="scope">
+          <m-dict mode="list" v-model="scope.row.isPage" dict-key="yes_no"></m-dict>
+        </template>
+      </el-table-column>
+      <el-table-column prop="sort" label="排序" width="80">
         <template slot-scope="scope">
           {{ scope.row.sort }}
         </template>
       </el-table-column>
-      <el-table-column prop="seoKeyworks" label="seo关键字">
+      <!--el-table-column prop="seoKeyworks" label="seo关键字">
         <template slot-scope="scope">
           {{ scope.row.seoKeyworks }}
         </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间">
+      </el-table-column-->
+      <el-table-column prop="createTime" label="创建时间" width="150">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
       </el-table-column>
       <el-table-column
         label="操作"
+        width="280"
         align="center">
         <template slot-scope="scope">
           <el-button v-hasPerm="['admin','cms:category:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看栏目', 'Details', false)">查看</el-button>
