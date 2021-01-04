@@ -1,0 +1,133 @@
+{
+  "moduleName": "cms",
+  "table": {
+    "fullscreen": false,
+    "remark": "文章",
+    "isTree": false,
+    "dialogWidth": "50%",
+    "labelWidth": 100,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "cms_article",
+    "className": "CmsArticle",
+    "tableCameName": "cmsArticle",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String"
+      },
+      {
+        "primaryKey": true,
+        "javaProperty": "categoryId",
+        "formtype": "selectTree",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "remark": "所属栏目",
+        "ext": {
+          "url": "/cms/category/list"
+        }
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "title",
+        "formtype": "text",
+        "remark": "标题",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType": "LIKE",
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "author",
+        "formtype": "text",
+        "remark": "作者",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "LIKE",
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "source",
+        "formtype": "text",
+        "remark": "文章来源",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "LIKE",
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "sort",
+        "formtype": "text",
+        "remark": "排序",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Double"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "cover",
+        "formtype": "singleUpload",
+        "remark": "大图",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "searchType": "LIKE",
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isPublish",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否发布",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": false,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "content",
+        "formtype": "tinymce",
+        "remark": "内容",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": true,
+        "searchType":"BT",
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}
