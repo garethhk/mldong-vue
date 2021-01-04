@@ -1,0 +1,133 @@
+{
+  "moduleName": "cms",
+  "table": {
+    "fullscreen": false,
+    "remark": "栏目",
+    "isTree": true,
+    "dialogWidth": "800px",
+    "labelWidth": 120,
+    "hasDelete": true,
+    "hasAdd": true,
+    "hasEdit": true,
+    "hasExport": false,
+    "tableName": "cms_category",
+    "className": "CmsCategory",
+    "tableCameName": "cmsCategory",
+    "formLayout": "",
+    "columns": [
+      {
+        "primaryKey": true,
+        "javaProperty": "id",
+        "formtype": "none",
+        "defaultValue": "undefined",
+        "javaType": "String",
+        "remark": "编号"
+      },
+      {
+        "primaryKey": true,
+        "javaProperty": "parentId",
+        "formtype": "selectTree",
+        "defaultValue": "undefined",
+        "javaType": "Integer",
+        "remark": "父栏目",
+        "ext": {
+          "url": "/cms/category/list"
+        }
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "name",
+        "formtype": "text",
+        "remark": "栏目名称",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": true,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "icon",
+        "formtype": "text",
+        "remark": "图标",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isNav",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否导航",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": false,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "isShow",
+        "formtype": "dict",
+        "ext": {
+          "dictKey": "yes_no"
+        },
+        "remark": "是否显示",
+        "defaultValue": 2,
+        "searchable": true,
+        "required": false,
+        "show": true,
+        "javaType": "Integer"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "sort",
+        "formtype": "text",
+        "remark": "排序",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Double"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "seoKeyworks",
+        "formtype": "text",
+        "remark": "seo关键字",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "seoDescription",
+        "formtype": "textarea",
+        "remark": "seo描述",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": false,
+        "javaType": "String"
+      },
+      {
+        "primaryKey": false,
+        "javaProperty": "createTime",
+        "formtype": "none",
+        "remark": "创建时间",
+        "defaultValue": "undefined",
+        "searchable": false,
+        "required": false,
+        "show": true,
+        "javaType": "Date"
+      }
+    ]
+  }
+}
