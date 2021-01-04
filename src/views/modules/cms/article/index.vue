@@ -5,7 +5,7 @@
         <el-input
           size="small"
           clearable
-          placeholder="请输入部门名称"
+          placeholder="请输入栏目名称"
           prefix-icon="el-icon-search"
           style="margin-bottom: 20px"
           v-model="categoryName">
