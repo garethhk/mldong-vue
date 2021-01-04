@@ -21,6 +21,16 @@
     <el-form-item class="m-form-item" label="是否发布" prop="isPublish">
       <m-dict mode="form" v-model="form.isPublish" dict-key="yes_no"></m-dict>
     </el-form-item>
+    <el-form-item class="m-form-item" label="发布日期" prop="sort">
+      <el-date-picker
+        v-model="form.publishTime"
+        type="datetime"
+        placeholder="选择日期时间"
+        align="center"
+        value-format="yyyy-MM-dd HH:mm:ss"
+        :picker-options="pickerOptions">
+      </el-date-picker>
+    </el-form-item>
     <el-form-item class="m-form-item" label="内容" prop="content">
       <m-tinymce v-model="form.content"></m-tinymce>
     </el-form-item>
@@ -55,11 +65,12 @@ export default {
         cover: undefined,
         isPublish: 2,
         content: undefined,
-        id: undefined
+        id: undefined,
+        publishTime: undefined
       },
       rules: {
         categoryId: [
-          { required: false, message: '所属栏目不能为空', trigger: 'blur' }
+          { required: true, message: '所属栏目不能为空', trigger: 'blur' }
         ],
         title: [
           { required: true, message: '标题不能为空', trigger: 'blur' }
@@ -82,6 +93,28 @@ export default {
         content: [
           { required: false, message: '内容不能为空', trigger: 'blur' }
         ]
+      },
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
       }
     }
   },
