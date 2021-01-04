@@ -10,7 +10,7 @@
           style="margin-bottom: 20px"
           v-model="categoryName">
         </el-input>
-        <el-tree ref="tree" highlight-current :data="categoryData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"></el-tree>
+        <el-tree ref="tree" highlight-current node-key="id" :data="categoryData" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"></el-tree>
       </el-col>
       <el-col v-if="isPage" :span="20">
         <el-form :inline="false" class="m-form" ref="categoryForm" :model="categoryForm" label-width="100px">
@@ -129,7 +129,7 @@
             <!--end========分页===========end-->
             <!--start========弹框===========start-->
             <el-dialog :title="title" :visible.sync="isOpenDialog" width="50%" append-to-body @close="handleCancel">
-              <component :ref="currentView" :is="currentView" v-if="isOpenDialog" :id="id"></component>
+              <component :ref="currentView" :is="currentView" v-if="isOpenDialog" :id="id" :category="currentCategory"></component>
               <div slot="footer" class="dialog-footer">
                 <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
                 <el-button @click="handleCancel">取 消</el-button>
@@ -367,14 +367,19 @@ export default {
         this.requestData()
       }
     },
+    // 栏目过滤
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
     },
+    // 搜索重置
     searchReset() {
       this.m_IN_categoryId = undefined
+      this.$refs['tree'].setCurrentKey()
+      this.currentCategory = {}
       this.requestData()
     },
+    // 更新栏目信息
     handleCategorySubmit() {
       if (!this.categoryForm) {
         this.categoryForm = ''

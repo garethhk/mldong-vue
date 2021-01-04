@@ -52,6 +52,12 @@ export default {
     id: {
       type: [String, Number],
       default: undefined
+    },
+    category: {
+      type: [Object],
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -125,6 +131,9 @@ export default {
   },
   mounted() {
     this.getDetails()
+    if (this.category.id) {
+      this.form.categoryId = this.category.id
+    }
   },
   methods: {
     submit(isShowMessage = 1) {
