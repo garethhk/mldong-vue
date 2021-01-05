@@ -148,7 +148,7 @@ export default {
       this.valueId = node[this.props.value]
       this.$emit('input', this.valueId)
       this.defaultExpandedKey = []
-      this.$emit('change', this.valueId)
+      this.$emit('change', this.valueId, node)
     },
     // 清除选中
     clearHandle() {
@@ -167,6 +167,17 @@ export default {
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
+    },
+    getCurrentData() {
+      var node = this.$refs.selectTree.getNode(this.valueId)
+      if (node) {
+        return node.data
+      } else {
+        return undefined
+      }
+    },
+    getData() {
+      return this.remoteData.length ? this.remoteData : []
     }
   }
 }
