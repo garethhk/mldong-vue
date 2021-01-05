@@ -55,6 +55,17 @@ export function list(data) {
   })
 }
 /**
+ * 通过id获取文章-包含扩展信息
+ * @param {*} data
+ */
+export function getWithExt(data) {
+  return request({
+    url: '/cms/article/getWithExt',
+    method: 'post',
+    data
+  })
+}
+/**
  * 分页查询文章列表-包含扩展信息
  * @param {*} data
  */

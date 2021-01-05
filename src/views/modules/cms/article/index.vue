@@ -390,7 +390,7 @@ export default {
       this.extFormConfig.formItems.forEach(item => {
         if (item.required === true) {
           if (!this.extFormValue[item.javaProperty]) {
-            errorMsg.push(this.extFormConfig.remark)
+            errorMsg.push(item.remark)
           }
         }
       })
