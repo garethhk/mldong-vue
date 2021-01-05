@@ -72,6 +72,46 @@
           </el-row>
         </el-form-item>
       </el-tab-pane>
+      <el-tab-pane label="文章扩展字段配置" v-if="form.isPage === 1">
+        <el-form-item label="" label-width="0px">
+          <el-row>
+            <el-col :span="5">表单类型</el-col>
+            <el-col :span="4" :offset="1">字段名称</el-col>
+            <el-col :span="5" :offset="1">字段说明</el-col>
+            <el-col :span="3" :offset="1">是否必填</el-col>
+            <el-col :span="3" :offset="1"><el-button icon="el-icon-plus" size="mini" @click="handleArticleAdd(extArticleFormConfig.formItems.length-1)"></el-button></el-col>
+          </el-row>
+          <el-row :key="index" v-for="(item,index) in extArticleFormConfig.formItems" style="margin-top: 10px;">
+            <el-col :span="5">
+              <el-select v-model="extArticleFormConfig.formItems[index].formtype" size="medium">
+                <el-option label="单行文本" value="text"></el-option>
+                <el-option label="多行文本" value="textarea"></el-option>
+                <el-option label="单图" value="singleUpload"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="4" :offset="1">
+              <el-input type="text" v-model="extArticleFormConfig.formItems[index].javaProperty" placeholder="字段名称" size="medium"></el-input>
+            </el-col>
+            <el-col :span="5" :offset="1">
+              <el-input type="text" v-model="extArticleFormConfig.formItems[index].remark" placeholder="字段说明" size="medium"></el-input>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-switch
+                v-model="extArticleFormConfig.formItems[index].required"
+                active-text="是"
+                inactive-text="否"
+                size="medium">
+              </el-switch>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-button-group>
+                <el-button icon="el-icon-minus" size="mini" @click="handleArticleDelete(index)"></el-button>
+                <el-button icon="el-icon-plus" size="mini" @click="handleArticleAdd(index)"></el-button>
+              </el-button-group>
+            </el-col>
+          </el-row>
+        </el-form-item>
+      </el-tab-pane>
     </el-tabs>
   </el-form>
 </template>
@@ -135,6 +175,9 @@ export default {
       },
       extFormConfig: {
         formItems: []
+      },
+      extArticleFormConfig: {
+        formItems: []
       }
     }
   },
@@ -155,6 +198,7 @@ export default {
         this.$refs['form'].validate((valid) => {
           if (valid) {
             this.form.extFormConfig = JSON.stringify(this.extFormConfig)
+            this.form.extArticleFormConfig = JSON.stringify(this.extArticleFormConfig)
             if (this.isEdit) {
               updateCategory(this.form).then(res => {
                 if (isShowMessage) {
@@ -205,12 +249,16 @@ export default {
             if (res.data.extFormConfig) {
               this.extFormConfig = JSON.parse(res.data.extFormConfig)
             }
+            if (res.data.extArticleFormConfig) {
+              this.extArticleFormConfig = JSON.parse(res.data.extArticleFormConfig)
+            }
           } else {
             this.$set(this.form, 'parentId', res.data.id)
           }
         })
       }
     },
+    // 添加栏目扩展字段
     handleAdd(index) {
       this.extFormConfig.formItems.splice(index + 1, 0, {
         formtype: 'text',
@@ -218,8 +266,21 @@ export default {
         remark: '扩展字段' + (index + 1)
       })
     },
+    // 删除栏目扩展字段
     handleDelete(index) {
       this.extFormConfig.formItems.splice(index, 1)
+    },
+    // 添加文章扩展字段
+    handleArticleAdd(index) {
+      this.extArticleFormConfig.formItems.splice(index + 1, 0, {
+        formtype: 'text',
+        javaProperty: 'ext' + (index + 1),
+        remark: '扩展字段' + (index + 1)
+      })
+    },
+    // 删除文章扩展字段
+    handleArticleDelete(index) {
+      this.extArticleFormConfig.formItems.splice(index, 1)
     }
   }
 }
