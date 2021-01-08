@@ -46,6 +46,7 @@
 import { save as save<%=table.tableCameName.replace(moduleName,'')%>, update as update<%=table.tableCameName.replace(moduleName,'')%>, get as get<%=table.tableCameName.replace(moduleName,'')%> } from '@/api/<%=moduleName%>/<%=moduleName%>.<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>.service.js'
 
 export default {
+  name: '<%=table.className%>Form',
   props: {
     isEdit: {
       type: Boolean,

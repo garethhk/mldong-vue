@@ -5,6 +5,7 @@
 import MForm from './components/form'
 
 export default {
+  name: '<%=table.className%>Details',
   components: { MForm },
   props: {
     id: {

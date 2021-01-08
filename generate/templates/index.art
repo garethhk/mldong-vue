@@ -105,6 +105,7 @@ import <{$value.componentName}> from './<{$value.componentName}>'<{/if}><{/each}
 import { list as list<%=table.tableCameName.replace(moduleName,'')%>, remove as remove<%=table.tableCameName.replace(moduleName,'')%> } from '@/api/<%=moduleName%>/<%=moduleName%>.<%=table.tableCameName.replace(moduleName,'').charAt(0).toLowerCase()+table.tableCameName.replace(moduleName,'').slice(1)%>.service.js'
 
 export default {
+  name: '<%=table.className%>Index',
   components: {<{if table.isTree!=true}>
     MSearch,<{/if}>
     Add,<{if table.btns}><{each table.btns}><{if $value.componentName}>
