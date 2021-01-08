@@ -35,6 +35,9 @@
     <el-form-item class="m-form-item" label="是否显示" prop="isShow">
       <m-dict mode="form" v-model="form.isShow" dict-key="yes_no"></m-dict>
     </el-form-item>
+    <el-form-item class="m-form-item" label="是否缓存" prop="isCache">
+      <m-dict mode="form" v-model="form.isCache" dict-key="yes_no"></m-dict>
+    </el-form-item>
     <el-form-item class="m-form-item" label="排序" prop="sort">
       <el-input type="text" v-model="form.sort" placeholder="请输入排序"></el-input>
     </el-form-item>
@@ -74,7 +77,8 @@ export default {
         sort: undefined,
         id: undefined,
         icon: undefined,
-        remark: undefined
+        remark: undefined,
+        isCache: 1
       },
       rules: {
         parentId: [
@@ -91,6 +95,9 @@ export default {
         ],
         isShow: [
           { required: true, message: '是否显示不能为空', trigger: 'blur' }
+        ],
+        isCache: [
+          { required: true, message: '是否缓存不能为空', trigger: 'blur' }
         ],
         sort: [
           { required: false, message: '排序不能为空', trigger: 'blur' }
@@ -162,6 +169,9 @@ export default {
         }).then(res => {
           if (this.isEdit) {
             this.form = this.$util.copy(res.data, this.form)
+            if (!this.form.isCache) {
+              this.form.isCache = 1
+            }
           } else {
             this.$set(this.form, 'parentId', res.data.id)
           }
