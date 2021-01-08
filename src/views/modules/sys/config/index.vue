@@ -102,6 +102,7 @@ import Details from './details'
 import { list as listConfig, remove as removeConfig } from '@/api/sys/sys.config.service.js'
 
 export default {
+  name: 'SysConfigIndex',
   components: {
     MSearch,
     Add,

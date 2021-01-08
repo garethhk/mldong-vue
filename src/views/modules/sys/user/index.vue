@@ -122,6 +122,7 @@ import Details from './details'
 import { listWithExt as listUser, remove as removeUser } from '@/api/sys/sys.user.service.js'
 import { list as listDept } from '@/api/sys/sys.dept.service.js'
 export default {
+  name: 'SysUserIndex',
   components: {
     MSearch,
     Add,

@@ -89,6 +89,7 @@ import Details from './details'
 import { list as listCategory, remove as removeCategory } from '@/api/cms/cms.category.service.js'
 
 export default {
+  name: 'CmsCategoryIndex',
   components: {
     Add,
     Edit,

@@ -96,6 +96,7 @@ import Details from './details'
 import { list as listRequestLog, remove as removeRequestLog } from '@/api/sys/sys.requestLog.service.js'
 
 export default {
+  name: 'SysRequestLogIndex',
   components: {
     MSearch,
     Add,

@@ -106,6 +106,7 @@ import dictitem from './dictitem'
 import { list as listDict, remove as removeDict } from '@/api/sys/sys.dict.service.js'
 
 export default {
+  name: 'SysDictIndex',
   components: {
     MSearch,
     Add,

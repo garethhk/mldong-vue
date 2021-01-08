@@ -84,6 +84,7 @@ import Details from './details'
 import { list as listMenu, remove as removeMenu } from '@/api/sys/sys.menu.service.js'
 
 export default {
+  name: 'SysMenuIndex',
   components: {
     Add,
     Edit,

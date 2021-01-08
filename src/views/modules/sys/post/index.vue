@@ -97,6 +97,7 @@ import Details from './details'
 import { list as listPost, remove as removePost } from '@/api/sys/sys.post.service.js'
 
 export default {
+  name: 'SysPostIndex',
   components: {
     MSearch,
     Add,

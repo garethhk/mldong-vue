@@ -92,6 +92,7 @@ import Details from './details'
 import { list as listNotice, remove as removeNotice } from '@/api/sys/sys.notice.service.js'
 
 export default {
+  name: 'SysNoticeIndex',
   components: {
     MSearch,
     Add,

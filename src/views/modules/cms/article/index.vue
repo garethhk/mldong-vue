@@ -167,6 +167,7 @@ import { list as listCategory } from '@/api/cms/cms.category.service.js'
 import { update as updateCategory } from '@/api/cms/cms.category.service.js'
 
 export default {
+  name: 'CmsArticleIndex',
   components: {
     MSearch,
     Add,

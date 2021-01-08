@@ -126,6 +126,7 @@ import selectUser from './selectUser'
 import { list as listRole, remove as removeRole } from '@/api/sys/sys.role.service.js'
 
 export default {
+  name: 'SysRoleIndex',
   components: {
     MSearch,
     Add,

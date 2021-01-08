@@ -83,6 +83,7 @@ import Details from './details'
 import { list as listDept, remove as removeDept } from '@/api/sys/sys.dept.service.js'
 
 export default {
+  name: 'SysDeptIndex',
   components: {
     Add,
     Edit,
