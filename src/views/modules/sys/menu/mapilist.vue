@@ -48,6 +48,7 @@ import Details from './details'
 import { listApiList } from '@/api/sys/sys.rbac.service.js'
 
 export default {
+  name: 'SysMenuMapilist',
   components: {
     Add,
     Edit,
