@@ -78,7 +78,7 @@ export default {
   },
   data() {
     return {
-      mValue: Number(this.value)
+      mValue: this.value ? Number(this.value) : undefined
     }
   },
   computed: {
@@ -92,7 +92,7 @@ export default {
   },
   watch: {
     value(n) { // 监听父组件值变动，子组件也要变动
-      this.mValue = Number(n)
+      this.mValue = n ? Number(n) : undefined
     }
   },
   created() {
@@ -108,8 +108,8 @@ export default {
   methods: {
     // 子组件值变化要通过父组件
     handleChange(value) {
-      this.$emit('input', Number(value))
-      this.$emit('change', Number(value))
+      this.$emit('input', value ? Number(value) : undefined)
+      this.$emit('change', value ? Number(value) : undefined)
     }
   }
 }
