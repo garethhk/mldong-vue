@@ -69,11 +69,16 @@ export default {
     disabled: { //  占位符
       type: Boolean,
       default: false
+    },
+    // 自定义地址
+    url: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
-      mValue: this.value
+      mValue: Number(this.value)
     }
   },
   computed: {
@@ -87,7 +92,7 @@ export default {
   },
   watch: {
     value(n) { // 监听父组件值变动，子组件也要变动
-      this.mValue = n
+      this.mValue = Number(n)
     }
   },
   created() {
@@ -95,15 +100,16 @@ export default {
       // 这里调用store/modules/dict.js/action->getByDictKey
       this.$store.dispatch('dict/getByDictKey', {
         dictKey: this.dictKey,
-        type: this.type
+        type: this.type,
+        url: '/sys/dict/getByDictKey'
       })
     }
   },
   methods: {
     // 子组件值变化要通过父组件
     handleChange(value) {
-      this.$emit('input', value)
-      this.$emit('change', value)
+      this.$emit('input', Number(value))
+      this.$emit('change', Number(value))
     }
   }
 }

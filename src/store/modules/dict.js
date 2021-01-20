@@ -37,9 +37,12 @@ const actions = {
         })
         // 这里暂不用api.service.js
         request({
-          url: '/sys/dict/getByDictKey',
+          url: data.url,
           method: 'post',
-          data
+          data: {
+            dictKey: data.dictKey,
+            type: data.type
+          }
         }).then(res => {
           if (res.code === 0 && res.data) {
             commit('SAVE_DICT_ITEM', res.data)
