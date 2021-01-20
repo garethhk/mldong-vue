@@ -95,6 +95,7 @@ export default {
         pageNum: page.page,
         pageSize: page.limit,
         m_EQ_dictId: this.id,
+        orderBy: 'sort asc',
         ...this.searchForm
       }).then(res => {
         this.loading = false

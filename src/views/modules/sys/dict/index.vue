@@ -75,7 +75,7 @@
     />
     <!--end========分页===========end-->
     <!--start========弹框===========start-->
-    <el-dialog :title="title" :visible.sync="isOpenDialog" width="500px" append-to-body @close="handleCancel">
+    <el-dialog :title="title" :visible.sync="isOpenDialog" width="60%" append-to-body @close="handleCancel">
       <component :ref="currentView" :is="currentView" v-if="isOpenDialog" :id="id"></component>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" v-if="showOk" :loading="submitLoading" @click="handleSubmit">确 定</el-button>
