@@ -20,8 +20,8 @@
     </slot>
     <!--搜索表单布局模式-->
     <slot v-else-if="mode==='searchForm'" v-bind:dict="dict">
-      <el-select :disabled="disabled" :size="size" v-model="mValue" v-if="dict.items" @change="handleChange">
-        <el-option label="所有" :value="undefined"></el-option>
+      <el-select :disabled="disabled" :size="size" v-model="mValue" :multiple="multiple" v-if="dict.items" @change="handleChange">
+        <el-option v-if="!multiple" label="所有" :value="undefined"></el-option>
         <el-option
           v-for="item in dict.items"
           :key="item.dictItemValue"
@@ -51,8 +51,10 @@ export default {
     },
     // 绑定的值
     value: {
-      type: [String, Number],
-      default: undefined
+      type: [String, Number, Array],
+      default() {
+        return this.multiple ? [] : undefined
+      }
     },
     size: { // medium/small/mini
       type: String,
@@ -74,11 +76,15 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+    multiple: { //  多选-search
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      mValue: this.value ? Number(this.value) : undefined
+      mValue: this.multiple ? [] : (this.value ? Number(this.value) : undefined)
     }
   },
   computed: {
@@ -92,7 +98,7 @@ export default {
   },
   watch: {
     value(n) { // 监听父组件值变动，子组件也要变动
-      this.mValue = n ? Number(n) : undefined
+      this.mValue = n instanceof Array ? n : (n ? Number(n) : undefined)
     }
   },
   created() {
@@ -108,8 +114,8 @@ export default {
   methods: {
     // 子组件值变化要通过父组件
     handleChange(value) {
-      this.$emit('input', value ? Number(value) : undefined)
-      this.$emit('change', value ? Number(value) : undefined)
+      this.$emit('input', value instanceof Array ? value : (value ? Number(value) : undefined))
+      this.$emit('change', value instanceof Array ? value : (value ? Number(value) : undefined))
     }
   }
 }
