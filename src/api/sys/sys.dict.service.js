@@ -54,3 +54,13 @@ export function list(data) {
     data
   })
 }
+/**
+ * 获取所有字典枚举
+ * @param {*} data
+ */
+export function listAllEnum() {
+  return request({
+    url: '/sys/dict/listAllEnum',
+    method: 'post'
+  })
+}

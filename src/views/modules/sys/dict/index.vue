@@ -28,6 +28,11 @@
           删除
         </el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button v-hasPerm="['admin','sys:dict:listAllEnum']" type="info" icon="el-icon-s-grid" size="small" @click="openDialog(undefined, '查看字典枚举', 'DictEnum', false)">
+          字典枚举
+        </el-button>
+      </el-col>
     </el-row>
     <!--end========顶部工具栏===========end-->
     <!--start========表格列表===========start-->
@@ -103,6 +108,7 @@ import Edit from './edit'
 import Details from './details'
 import drawer from './drawer'
 import dictitem from './dictitem'
+import DictEnum from './dict-enum'
 import { list as listDict, remove as removeDict } from '@/api/sys/sys.dict.service.js'
 
 export default {
@@ -113,7 +119,8 @@ export default {
     drawer,
     Edit,
     dictitem,
-    Details
+    Details,
+    DictEnum
   },
   data() {
     return {
