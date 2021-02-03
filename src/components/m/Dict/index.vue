@@ -75,7 +75,7 @@ export default {
     // 自定义地址
     url: {
       type: String,
-      default: ''
+      default: '/sys/dict/getByDictKey'
     },
     multiple: { //  多选-search
       type: Boolean,
@@ -107,7 +107,7 @@ export default {
       this.$store.dispatch('dict/getByDictKey', {
         dictKey: this.dictKey,
         type: this.type,
-        url: '/sys/dict/getByDictKey'
+        url: this.url
       })
     }
   },
