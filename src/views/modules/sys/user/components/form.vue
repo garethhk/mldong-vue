@@ -3,6 +3,12 @@
     <el-form-item class="m-form-item" label="用户名" prop="userName">
       <el-input type="text" v-model="form.userName" placeholder="请输入用户名"></el-input>
     </el-form-item>
+    <el-form-item label="密码" prop="password">
+      <el-input v-model="form.password" placeholder="请输入密码" type="password" />
+    </el-form-item>
+    <el-form-item label="确认密码" prop="confirmPassword">
+      <el-input v-model="form.confirmPassword" placeholder="请输入确认密码" type="password" />
+    </el-form-item>
     <el-form-item class="m-form-item" label="姓名" prop="realName">
       <el-input type="text" v-model="form.realName" placeholder="请输入姓名"></el-input>
     </el-form-item>
@@ -45,9 +51,18 @@ export default {
     }
   },
   data() {
+    const equalToPassword = (rule, value, callback) => {
+      if (this.form.password !== value) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
     return {
       form: {
         userName: undefined,
+        password: undefined,
+        confirmPassword: undefined,
         realName: undefined,
         deptId: undefined,
         postId: undefined,
@@ -59,7 +74,16 @@ export default {
       },
       rules: {
         userName: [
-          { required: true, message: '用户名不能为空', trigger: 'blur' }
+          { required: true, message: '用户名不能为空', trigger: 'blur' },
+          { pattern: /^[a-zA-Z]{1}[a-zA-Z0-9_]{4,15}$/, message: '用户名字母开头,5-16位长度的字母、数字和下划线组合', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { pattern: /^[a-zA-Z]{1}[a-zA-Z0-9@#$%^&*_]{5,15}$/, message: '密码字母开头,6-16位长度的字母、数字和特殊字符(@#$%^&*_)组合', trigger: 'blur' }
+        ],
+        confirmPassword: [
+          { required: true, message: '确认密码不能为空', trigger: 'blur' },
+          { required: true, validator: equalToPassword, trigger: 'blur' }
         ],
         realName: [
           { required: true, message: '姓名不能为空', trigger: 'blur' }
