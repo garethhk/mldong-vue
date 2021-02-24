@@ -88,6 +88,7 @@
               <el-button v-hasPerm="['admin','sys:user:get']" type="text" size="small" icon="el-icon-view" @click.native.stop="openDialog(scope.row.id, '查看用户', 'Details', false)">查看</el-button>
               <el-button v-hasPerm="['admin','sys:user:update']" type="text" size="small" icon="el-icon-edit" @click.native.stop="openDialog(scope.row.id, '修改用户', 'Edit', true)">修改</el-button>
               <el-button v-hasPerm="['admin','sys:user:remove']" type="text" size="small" icon="el-icon-delete" @click.native.stop="handleRemove(scope.row)">删除</el-button>
+              <el-button v-hasPerm="['admin','sys:user:resetPassword']" type="text" size="small" icon="el-icon-setting" @click.native.stop="handleResetPassword(scope.row)">重置密码</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -119,7 +120,7 @@ import MSearch from './components/search'
 import Add from './add'
 import Edit from './edit'
 import Details from './details'
-import { listWithExt as listUser, remove as removeUser } from '@/api/sys/sys.user.service.js'
+import { listWithExt as listUser, remove as removeUser, resetPassword } from '@/api/sys/sys.user.service.js'
 import { list as listDept } from '@/api/sys/sys.dept.service.js'
 export default {
   name: 'SysUserIndex',
@@ -215,6 +216,32 @@ export default {
             this.requestData()
           } else {
             this.$message({ message: res.msg || '删除失败', type: 'error' })
+          }
+        })
+      }).catch(() => {
+        this.$message({ type: 'info', message: '已取消删除' })
+      })
+    },
+    handleResetPassword(row) {
+      this.$confirm('此操作重置用户密码, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var ids = []
+        if (row.id) {
+          ids.push(row.id)
+        } else {
+          ids = this.ids
+        }
+        resetPassword({
+          ids: ids
+        }).then(res => {
+          if (res.code === 0) {
+            this.$message({ message: '重置用户密码成功', type: 'success' })
+            this.requestData()
+          } else {
+            this.$message({ message: res.msg || '重置用户密码失败', type: 'error' })
           }
         })
       }).catch(() => {

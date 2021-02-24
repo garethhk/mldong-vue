@@ -104,3 +104,14 @@ export function updateProfile(data) {
     data
   })
 }
+/**
+ * 重置用户密码
+ * @param {*} data
+ */
+export function resetPassword(data) {
+  return request({
+    url: '/sys/user/resetPassword',
+    method: 'post',
+    data
+  })
+}
