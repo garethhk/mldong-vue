@@ -94,13 +94,13 @@ export default {
     requestData(k) {
       if (this.url) {
         this.loading = true
-        var operateType = this.multiple ? 'IN' : 'EQ'
+        // var operateType = this.multiple ? 'IN' : 'EQ'
         request({
           url: this.url,
           method: 'post',
           data: {
             ['m_LIKE_' + this.searchKey]: k,
-            [`mor_${operateType}_` + this.valueKey]: this.value
+            includeIds: [this.value]
           }
         }).then(res => {
           this.loading = false
